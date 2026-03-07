@@ -1,0 +1,163 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import videos from '../../data/videos.json';
+---
+
+<Layout title="视频作品集 | Wisdio Portfolio">
+  <div class="showcase-container">
+    <nav class="nav">
+      <a href="/" class="back-link">← 返回主页</a>
+      <h1 class="page-title">视频作品展示</h1>
+    </nav>
+    
+    <div class="grid">
+      {videos.map((video) => (
+        <article class="card">
+          <a href={video.url} target="_blank" rel="noopener noreferrer" class="card-link">
+            <div class="thumbnail-wrapper">
+              {video.thumbnail ? (
+                <img src={video.thumbnail} alt={video.title} class="thumbnail" />
+              ) : (
+                <div class="thumbnail-placeholder">🎬 视频内容</div>
+              )}
+            </div>
+            <div class="content">
+              <span class="date">{video.date}</span>
+              <h2 class="title">{video.title}</h2>
+              <p class="description">{video.description}</p>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .showcase-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+    background-color: #f8fafc;
+    color: #1e293b;
+  }
+  
+  .nav {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    gap: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 1.5rem;
+  }
+  
+  .back-link {
+    color: #64748b;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    align-self: flex-start;
+  }
+  
+  .back-link:hover {
+    color: #4f46e5;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f1f5f9;
+  }
+  
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .thumbnail-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background-color: #cbd5e1;
+    position: relative;
+  }
+  
+  .thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .card:hover .thumbnail {
+    transform: scale(1.05);
+  }
+  
+  .thumbnail-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #475569;
+    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  }
+  
+  .content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .date {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    color: #1e293b;
+    line-height: 1.4;
+  }
+  
+  .description {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.6;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

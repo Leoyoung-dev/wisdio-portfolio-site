@@ -1,0 +1,146 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import articles from '../../data/articles.json';
+---
+
+<Layout title="发表文章集 | Wisdio Portfolio">
+  <div class="showcase-container">
+    <nav class="nav">
+      <a href="/" class="back-link">← 返回主页</a>
+      <div class="header-inner">
+         <h1 class="page-title">发表文章集</h1>
+         <p class="subtitle">过去产出与发表的文章、报道合集</p>
+      </div>
+    </nav>
+    
+    <div class="list">
+      {articles.map((article) => (
+        <article class="card">
+          <a href={article.url} target="_blank" rel="noopener noreferrer" class="card-link">
+            <div class="content">
+              <span class="date">{article.date}</span>
+              <h2 class="title">{article.title}</h2>
+              <p class="description">{article.description}</p>
+              <span class="read-more">阅读原文 →</span>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .showcase-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+    background-color: #f8fafc;
+    color: #1e293b;
+  }
+  
+  .nav {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    gap: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 2rem;
+  }
+  
+  .back-link {
+    color: #64748b;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    align-self: flex-start;
+  }
+  
+  .back-link:hover {
+    color: #4f46e5;
+  }
+
+  .header-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .subtitle {
+    color: #64748b;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+  }
+  
+  .card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    border-left-color: #4f46e5;
+  }
+  
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .date {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+    font-family: monospace;
+  }
+  
+  .title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: #1e293b;
+    line-height: 1.4;
+  }
+  
+  .description {
+    font-size: 1rem;
+    color: #475569;
+    line-height: 1.6;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .read-more {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4f46e5;
+    margin-top: auto;
+    display: inline-block;
+  }
+</style>

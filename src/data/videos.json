@@ -1,0 +1,18 @@
+[
+    {
+        "id": "wisdio-promo",
+        "title": "Wisdio Promo Video",
+        "description": "产品宣传视频 - 基于大模型的视频学习浏览器插件。",
+        "thumbnail": "/mmexport1772860222741.jpg",
+        "date": "2024-05",
+        "url": "#"
+    },
+    {
+        "id": "cure-demo",
+        "title": "Cure 康复训练游戏 Demo",
+        "description": "基于 CV 与 EMG 技术的中风患者居家康复系统展示演示视频。",
+        "thumbnail": "/肖像照横屏.png",
+        "date": "2024-06",
+        "url": "#"
+    }
+]
