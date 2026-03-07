@@ -3,23 +3,116 @@ interface Props {
 	title?: string;
 }
 
-const { title = "Wisdio Portfolio" } = Astro.props;
+const { title = "刘扬 - 个人作品集" } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="zh-CN">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+		<style is:global>
+			*, *::before, *::after {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			html {
+				scroll-behavior: smooth;
+			}
+
+			body {
+				font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+				background-color: #000;
+				color: #fff;
+				line-height: 1.6;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
+
+			/* Shared nav bar */
+			.site-nav {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 100;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 1rem 2rem;
+				background: rgba(0, 0, 0, 0.8);
+				backdrop-filter: blur(20px);
+				-webkit-backdrop-filter: blur(20px);
+				border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+			}
+
+			.site-nav .logo {
+				font-size: 1.1rem;
+				font-weight: 600;
+				letter-spacing: 0.5px;
+			}
+
+			.site-nav .nav-links {
+				display: flex;
+				gap: 2rem;
+				align-items: center;
+				list-style: none;
+			}
+
+			.site-nav .nav-links a {
+				font-size: 0.9rem;
+				font-weight: 400;
+				color: rgba(255, 255, 255, 0.7);
+				transition: color 0.2s;
+			}
+
+			.site-nav .nav-links a:hover {
+				color: #fff;
+			}
+
+			.site-nav .nav-cta {
+				padding: 0.5rem 1.2rem;
+				border: 1px solid rgba(255, 255, 255, 0.25);
+				border-radius: 20px;
+				font-size: 0.85rem;
+				font-weight: 500;
+				color: #fff !important;
+				transition: all 0.2s;
+			}
+
+			.site-nav .nav-cta:hover {
+				background: #fff;
+				color: #000 !important;
+			}
+
+			/* Utility */
+			.page-body {
+				padding-top: 60px;
+			}
+		</style>
 	</head>
 	<body>
+		<nav class="site-nav">
+			<a href="/" class="logo">刘扬</a>
+			<ul class="nav-links">
+				<li><a href="/showcase/videos">视频作品</a></li>
+				<li><a href="/showcase/articles">发表文章</a></li>
+				<li><a href="/resume" class="nav-cta">简历</a></li>
+			</ul>
+		</nav>
 		<slot />
 	</body>
 </html>
-

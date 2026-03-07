@@ -3,158 +3,135 @@ import Layout from '../../layouts/Layout.astro';
 import videos from '../../data/videos.json';
 ---
 
-<Layout title="视频作品集 | Wisdio Portfolio">
-  <div class="showcase-container">
-    <nav class="nav">
-      <a href="/" class="back-link">← 返回主页</a>
-      <h1 class="page-title">视频作品展示</h1>
-    </nav>
-    
-    <div class="grid">
-      {videos.map((video) => (
-        <article class="card">
-          <a href={video.url} target="_blank" rel="noopener noreferrer" class="card-link">
+<Layout title="视频作品 - 刘扬">
+  <main class="page-body">
+    <div class="page-container">
+      <div class="page-header">
+        <h1 class="page-title">视频作品</h1>
+        <p class="page-desc">产品宣传视频、Demo 演示与创意内容</p>
+      </div>
+
+      <div class="grid">
+        {videos.map((video) => (
+          <a href={video.url} target="_blank" rel="noopener noreferrer" class="card">
             <div class="thumbnail-wrapper">
               {video.thumbnail ? (
-                <img src={video.thumbnail} alt={video.title} class="thumbnail" />
+                <img src={video.thumbnail} alt={video.title} class="thumbnail" loading="lazy" />
               ) : (
-                <div class="thumbnail-placeholder">🎬 视频内容</div>
+                <div class="thumbnail-placeholder">🎬</div>
               )}
             </div>
-            <div class="content">
-              <span class="date">{video.date}</span>
-              <h2 class="title">{video.title}</h2>
-              <p class="description">{video.description}</p>
+            <div class="card-body">
+              <span class="card-date">{video.date}</span>
+              <h2 class="card-title">{video.title}</h2>
+              <p class="card-desc">{video.description}</p>
             </div>
           </a>
-        </article>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
+  </main>
 </Layout>
 
 <style>
-  .showcase-container {
-    max-width: 1200px;
+  .page-container {
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 2rem;
-    min-height: 100vh;
-    background-color: #f8fafc;
-    color: #1e293b;
+    padding: 6rem 2rem 4rem;
   }
-  
-  .nav {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 3rem;
-    gap: 1rem;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 1.5rem;
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 4rem;
   }
-  
-  .back-link {
-    color: #64748b;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-    align-self: flex-start;
-  }
-  
-  .back-link:hover {
-    color: #4f46e5;
-  }
-  
+
   .page-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #0f172a;
-    margin: 0;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.75rem;
   }
-  
+
+  .page-desc {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
   }
-  
+
   .card {
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #f1f5f9;
-  }
-  
-  .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-link {
-    text-decoration: none;
-    color: inherit;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s;
+    background: rgba(255, 255, 255, 0.02);
   }
-  
+
+  .card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-4px);
+  }
+
   .thumbnail-wrapper {
     width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    background-color: #cbd5e1;
-    position: relative;
+    background: #111;
   }
-  
+
   .thumbnail {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    opacity: 0.85;
+    transition: opacity 0.3s, transform 0.5s;
   }
-  
+
   .card:hover .thumbnail {
-    transform: scale(1.05);
+    opacity: 1;
+    transform: scale(1.03);
   }
-  
+
   .thumbnail-placeholder {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    color: #475569;
-    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    font-size: 2rem;
+    background: #111;
+    color: rgba(255, 255, 255, 0.3);
   }
-  
-  .content {
-    padding: 1.5rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+
+  .card-body {
+    padding: 1.25rem 1.5rem;
   }
-  
-  .date {
-    font-size: 0.875rem;
-    color: #64748b;
-    margin-bottom: 0.5rem;
+
+  .card-date {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.35);
+    font-family: 'Inter', monospace;
   }
-  
-  .title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 0 0 0.75rem 0;
-    color: #1e293b;
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0.4rem 0 0.6rem;
+    color: rgba(255, 255, 255, 0.9);
     line-height: 1.4;
   }
-  
-  .description {
-    font-size: 0.95rem;
-    color: #475569;
+
+  .card-desc {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.4);
     line-height: 1.6;
-    margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;

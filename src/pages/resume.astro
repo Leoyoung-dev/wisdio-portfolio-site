@@ -1,189 +1,349 @@
 ---
-import '../styles/global.css';
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="刘扬 - 产品经理简历">
-  <div class="page">
-    <!-- ===== 头部信息 ===== -->
-    <header class="header">
-      <div class="header-main">
-        <h1>刘 扬</h1>
-        <div class="subtitle">
-          <div>求职意向：产品实习生 / 用户研究实习生</div>
-          <div>到岗时间：立即到岗（可实习 6 个月）</div>
+<Layout title="简历 - 刘扬">
+  <main class="page-body">
+    <div class="resume-container">
+      <!-- Header -->
+      <header class="resume-header">
+        <div class="header-content">
+          <h1 class="name">刘 扬</h1>
+          <p class="role">求职意向：产品实习生 / 用户研究实习生</p>
+          <div class="contact-grid">
+            <div class="contact-item"><span>📱</span> 132-0291-3900</div>
+            <div class="contact-item"><span>✉️</span> <a href="mailto:21yliu12@stu.edu.cn">21yliu12@stu.edu.cn</a></div>
+            <div class="contact-item"><span>💬</span> 微信: LeoYoung_H</div>
+          </div>
         </div>
-      </div>
-      <div class="contact">
-        <span><span class="icon">📱</span> 132-0291-3900</span>
-        <span><span class="icon">✉️</span> <a href="mailto:21yliu12@stu.edu.cn">21yliu12@stu.edu.cn</a></span>
-        <span><span class="icon">💬</span> 微信: LeoYoung_H</span>
-      </div>
-      <div class="header-photo"
-        style="background-image: url('/肖像照竖屏.png'); background-size: cover; background-position: center;"></div>
-    </header>
+        <div class="photo-wrapper">
+          <div class="photo" style="background-image: url('/肖像照竖屏.png');"></div>
+        </div>
+      </header>
 
-    <!-- ===== 教育背景 ===== -->
-    <section class="section">
-      <div class="section-title">教育背景</div>
-      <div class="edu-row">
-        <span class="school">汕头大学 · 网络与新媒体</span>
-        <span class="date">2021.09 – 2026.06</span>
-      </div>
-      <div class="edu-detail">
-        学业成绩：总GPA <span class="highlight">4.01 / 5</span> · <span class="highlight">专业排名第一</span>
-      </div>
-      <div class="courses">
-        相关课程：用户研究方法 · 问卷调查与统计分析 · 传播统计学 · 数据库原理与技术(MySQL) · Python基础与文本数据挖掘 · 传播研究方法
-      </div>
-    </section>
+      <!-- Education -->
+      <section class="resume-section">
+        <h2 class="section-title">教育背景</h2>
+        <div class="edu-item">
+          <div class="item-header">
+            <span class="org">汕头大学 · 网络与新媒体</span>
+            <span class="date">2021.09 – 2026.06</span>
+          </div>
+          <p class="edu-detail">学业成绩：总 GPA <span class="highlight">4.01 / 5</span> · <span class="highlight">专业排名第一</span></p>
+          <p class="courses">相关课程：用户研究方法 · 问卷调查与统计分析 · 传播统计学 · 数据库原理与技术 · Python 数据挖掘 · 传播研究方法</p>
+        </div>
+      </section>
 
-    <!-- ===== 互联网项目经验 ===== -->
-    <section class="section">
-      <div class="section-title">互联网产品经验</div>
+      <!-- Experience -->
+      <section class="resume-section">
+        <h2 class="section-title">互联网项目经验</h2>
+        
+        <!-- Wisdio -->
+        <div class="exp-item">
+          <div class="item-header">
+            <div class="org-group">
+              <span class="org">Wisdio</span>
+              <span class="tag">独立产品</span>
+            </div>
+            <span class="date">2024 – 2026</span>
+          </div>
+          <p class="item-subtitle">基于 LLM 的视频学习浏览器插件 · <a href="https://wisdio.org" target="_blank" class="link">wisdio.org</a></p>
+          <ul class="bullet-list">
+            <li><strong>痛点拆解：</strong>针对长视频学习中“低效试错、提取关键信息难”等痛点，主导设计 AI 浏览器插件。</li>
+            <li><strong>产品设计：</strong>梳理核心业务流程，设计支持自定义 Prompt、Markdown 实时预览的交互原型；运用 Vibe Coding 独立完成开发部署，缩短开发周期。</li>
+            <li><strong>项目成果：</strong>适配桌面端及移动端，实现端到端视频对话，正进行灰度测试。</li>
+          </ul>
+        </div>
 
-      <!-- Wisdio -->
-      <div class="project">
-        <div class="project-header">
-          <span>
-            <span class="project-name">Wisdio</span>
-            <span class="project-tag">独立产品</span>
-          </span>
-          <span class="exp-date">2024 – 2026</span>
+        <!-- Grammar Check -->
+        <div class="exp-item">
+          <div class="item-header">
+            <div class="org-group">
+              <span class="org">Grammar Check</span>
+              <span class="tag">独立产品设计</span>
+            </div>
+            <span class="date">2024</span>
+          </div>
+          <p class="item-subtitle">AI 智能写作校对编辑器</p>
+          <ul class="bullet-list">
+            <li><strong>竞品拆解：</strong>识别学术科研人员核心痛点，识别 AI 辅助与作者主导权的平衡问题，主导完成完整 PRD。</li>
+            <li><strong>核心功能：</strong>设计“分片并发校对”机制，约束 JSON Schema 结构化输出，目标成功率 > 99.5%。</li>
+            <li><strong>差异化体验：</strong>设计“上下文聚焦定位”——通过模糊匹配精准溯源并高亮原文，增强沉浸体验。</li>
+          </ul>
         </div>
-        <div class="project-role">基于LLM的视频学习浏览器插件 · <a class="project-link" href="https://wisdio.org"
-            target="_blank">wisdio.org</a></div>
-        <ul>
-          <li>
-            <strong>痛点拆解：</strong>针对长视频学习中<strong>“低效试错、提取关键信息难、无法快速定位”</strong>的痛点（如：耗时筛选视频是否包含实操教程、人工寻找知识点对应时间戳极度不便等），主导设计了一款提升视频浏览与学习效率的
-            AI 浏览器插件
-          </li>
-          <li><strong>产品设计：</strong>梳理该场景下的核心业务流程，设计支持自定义 Prompt、Markdown 实时预览的交互原型；运用 Vibe Coding（AI
-            工具）独立完成前后端开发与部署，<strong>极大缩短从 0 到 1 的开发周期</strong></li>
-          <li><strong>项目成果：</strong>适配桌面端及 Lemur Browser 等移动端浏览器，实现端到端视频内容对话交互，正通过社交媒体进行<strong>灰度测试</strong></li>
-        </ul>
-      </div>
+      </section>
 
-      <!-- Grammar Check -->
-      <div class="project">
-        <div class="project-header">
-          <span>
-            <span class="project-name">Grammar Check · AI 智能写作校对编辑器</span>
-            <span class="project-tag">独立产品设计</span>
-          </span>
+      <!-- Professional Experience -->
+      <section class="resume-section">
+        <h2 class="section-title">实习经历</h2>
+        <div class="exp-item">
+          <div class="item-header">
+            <span class="org">北京日报社 · 实习记者</span>
+            <span class="date">2023.07 – 2023.10</span>
+          </div>
+          <p class="item-desc">负责医疗、养老领域新闻采编。发表报道 23 篇，其中 3 篇登载于头版。参与“京城养老大调研”，完成 30+ 户深度访谈。</p>
         </div>
-        <ul>
-          <li><strong>竞品拆解：</strong>对标 Grammarly、ProWritingAid，通过对学术科研人员等目标用户深度访谈，识别三大核心痛点：AI 辅助导致作者失去写作主导权、缺乏
-            Markdown/LaTeX 审校支持、人工逐段审校耗时；据此主导完成完整 PRD</li>
-          <li><strong>核心功能：</strong>设计"分片并发校对"机制，按段落语义切分并发调用大模型，约束 JSON Schema 结构化输出，目标 AI 输出成功率 <span class="metric">>
-              99.5%</span></li>
-          <li><strong>差异化体验（Aha Moment）：</strong>设计"上下文聚焦定位"——AI 引用原文时 <span class="metric">0.5s</span>
-            内通过模糊匹配精准溯源并高亮，暗化周围内容实现沉浸体验；命中率目标 <span class="metric">> 95%</span></li>
-          <li><strong>"AI 不夺权"机制：</strong>建议以悬浮卡片逐条呈现、用户主动采纳，配合独立撤销栈与一键收藏语料，确保作者对文本的完整掌控权</li>
-          <li><strong>MVP 指标：</strong>定义 AI 结构化输出成功率、聚焦算法命中率、核心路径阻力值（触发校对→首次采纳 <span class="metric">≤ 2
-              次点击</span>）三维北极星指标，独立完成 MVP 验证</li>
-        </ul>
-      </div>
+        <div class="exp-item">
+          <div class="item-header">
+            <span class="org">北青深一度训练营 · 法治新闻采编</span>
+            <span class="date">2024.03 – 2024.05</span>
+          </div>
+          <p class="item-desc">报道刑事案件，参与法院庭审，采访案件当事人，独立撰写 2 篇深度报道。</p>
+        </div>
+      </section>
 
-      <!-- Cure -->
-      <div class="project">
-        <div class="project-header">
-          <span>
-            <span class="project-name">Cure · 中风患者康复训练系统</span>
-          </span>
+      <!-- Skills -->
+      <section class="resume-section">
+        <h2 class="section-title">技能与其它</h2>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <span class="skill-label">设计</span>
+            <span class="skill-value">Figma, AI, PS, PR, DaVinci, AE</span>
+          </div>
+          <div class="skill-group">
+            <span class="skill-label">数据</span>
+            <span class="skill-value">SPSS, Excel, MySQL, Python</span>
+          </div>
+          <div class="skill-group">
+            <span class="skill-label">工具</span>
+            <span class="skill-value">Obsidian, Antigravity, Claude Code</span>
+          </div>
+          <div class="skill-group">
+            <span class="skill-label">个人</span>
+            <span class="skill-value">院级羽毛球男双冠军</span>
+          </div>
         </div>
-        <div class="project-role">毕业设计</div>
-        <ul>
-          <li><strong>需求分析：</strong>基于对三家康复科医院患者及家属的半结构化访谈 + Reddit 论坛数据爬取，构建用户画像，提炼出系统性污名化、训练中断、居家康复缺乏支持等核心痛点</li>
-          <li><strong>解决方案：</strong>桌面调研前沿文献，利用 Arduino 及 Seedstudio 开发板设计可穿戴式康复 MVP；通过 CV、EMG 技术与游戏化策略，提升中风患者居家康复依从性
-          </li>
-          <li><strong>预期项目成果：</strong>一款为中风患者定制的严肃游戏，旨在通过 CV 技术、EMG
-            技术以及游戏化体验，提升中风患者居家康复锻炼的依从性和积极性，改善因中风导致的口腔面部肌肉控制与吞咽困难等问题</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ===== 实习/兼职经历 ===== -->
-    <section class="section">
-      <div class="section-title">实习/兼职经历</div>
-
-      <div class="exp-item">
-        <div class="exp-header">
-          <span class="exp-title">北京日报社（科教卫部） · 实习记者</span>
-          <span class="exp-date">2023.07 – 2023.10</span>
-        </div>
-        <div class="exp-desc">
-          负责医疗、养老、文化领域新闻采编工作。实习期间发表报道 <span class="metric">23 篇</span>，其中 <span class="metric">3
-            篇</span>发布于北京日报头版。参与"京城养老大调研"，采用半结构化入户访谈北京社区 <span class="metric">30+</span> 住户；参与 2023 年 7·29
-          特大暴雨灾害报道，赴门头沟受灾一线采访。
-        </div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-header">
-          <span class="exp-title">北青深一度训练营 · 法治新闻采编</span>
-          <span class="exp-date">2024.03 – 2024.05</span>
-        </div>
-        <div class="exp-desc">
-          报道广东汕头、揭阳等地刑事案件，参加法院庭审，采访案件当事人，独立撰写 <span class="metric">2 篇</span>深度报道。
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== 校园经历 ===== -->
-    <section class="section">
-      <div class="section-title">校园 / 学术经历</div>
-
-      <div class="campus-item">
-        <div class="campus-header">
-          <span class="campus-title">AI新闻与人类新闻的区分度研究 · 校级大创项目</span>
-          <span class="campus-date">2024.02 – 2024.7</span>
-        </div>
-        <div class="campus-desc">
-          运用问卷调查法研究受众对 AI 生成新闻的辨识能力。负责搭建 AI 新闻 Agent 生成实验样本，参与问卷设计与 SPSS 数据分析。
-        </div>
-      </div>
-
-      <div class="campus-item">
-        <div class="campus-header">
-          <span class="campus-title">英语语言中心 · 外教助教</span>
-          <span class="campus-date">2022.03 – 2023.06</span>
-        </div>
-        <div class="campus-desc">
-          协助外籍教师授课，管理课程资料与学生成绩录入，使用 Excel 进行成绩数据可视化呈现。
-        </div>
-      </div>
-
-      <div class="campus-item">
-        <div class="campus-header">
-          <span class="campus-title">学院学生会成员</span>
-          <span class="campus-date">2022.11 – 2023.03</span>
-        </div>
-        <div class="campus-desc">
-          组织策划会议、讲座活动 <span class="metric">20+</span> 场，接待交流嘉宾，采写会议稿件。
-        </div>
-      </div>
-
-      <div class="campus-item">
-        <div class="campus-desc">
-          🏸 汕头大学羽毛球校队成员，2023 院级杯男子双打<span class="metric">冠军</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== 技能 ===== -->
-    <section class="section">
-      <div class="section-title">技能</div>
-      <div class="skills-grid">
-        <span class="skill-label">设计</span>
-        <span class="skill-value">Figma · Adobe Illustrator · Premiere · DaVinci Resolve · After Effects</span>
-        <span class="skill-label">数据</span>
-        <span class="skill-value">SPSS · Excel</span>
-        <span class="skill-label">文档</span>
-        <span class="skill-value">Word · PowerPoint · Obsidian</span>
-        <span class="skill-label">编程</span>
-        <span class="skill-value">Antigravity · Claude Code（Vibe Coding）</span>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
+  </main>
 </Layout>
+
+<style>
+  .resume-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 6rem 2rem 4rem;
+  }
+
+  .resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 3rem;
+  }
+
+  .name {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 0.5rem;
+  }
+
+  .role {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .contact-item span {
+    margin-right: 0.5rem;
+    opacity: 0.7;
+  }
+
+  .contact-item a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  .photo-wrapper {
+    width: 100px;
+    height: 130px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .photo {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+    transition: filter 0.3s;
+  }
+
+  .photo-wrapper:hover .photo {
+    filter: grayscale(0%);
+  }
+
+  .resume-section {
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .org {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .org-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .date {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.35);
+    font-family: 'Inter', monospace;
+  }
+
+  .edu-detail, .item-subtitle {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5rem;
+  }
+
+  .highlight {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .courses, .item-desc {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.6;
+  }
+
+  .bullet-list {
+    margin: 1rem 0;
+    padding-left: 1.2rem;
+    list-style: none;
+  }
+
+  .bullet-list li {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+
+  .bullet-list li::before {
+    content: '•';
+    position: absolute;
+    left: -1.2rem;
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  .bullet-list li strong {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .skill-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+  }
+
+  .skill-value {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+  }
+
+  .link {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color 0.2s;
+  }
+
+  .link:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 600px) {
+    .resume-header {
+      flex-direction: column-reverse;
+      gap: 2rem;
+    }
+    .item-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+    .name {
+      font-size: 2.5rem;
+    }
+  }
+
+  /* Print optimization */
+  @media print {
+    body { background: #fff; color: #000; }
+    .resume-container { padding: 0; max-width: 100%; }
+    .site-nav { display: none; }
+    .section-title::after { background: #eee; }
+    .tag { border: 1px solid #eee; }
+    .date, .role, .skill-label { color: #666; }
+    .org, .name, .highlight { color: #000; }
+  }
+</style>

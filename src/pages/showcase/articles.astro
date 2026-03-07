@@ -3,144 +3,108 @@ import Layout from '../../layouts/Layout.astro';
 import articles from '../../data/articles.json';
 ---
 
-<Layout title="发表文章集 | Wisdio Portfolio">
-  <div class="showcase-container">
-    <nav class="nav">
-      <a href="/" class="back-link">← 返回主页</a>
-      <div class="header-inner">
-         <h1 class="page-title">发表文章集</h1>
-         <p class="subtitle">过去产出与发表的文章、报道合集</p>
+<Layout title="发表文章 - 刘扬">
+  <main class="page-body">
+    <div class="page-container">
+      <div class="page-header">
+        <h1 class="page-title">发表文章</h1>
+        <p class="page-desc">过去产出与发表的文章、报道合集</p>
       </div>
-    </nav>
-    
-    <div class="list">
-      {articles.map((article) => (
-        <article class="card">
-          <a href={article.url} target="_blank" rel="noopener noreferrer" class="card-link">
-            <div class="content">
-              <span class="date">{article.date}</span>
-              <h2 class="title">{article.title}</h2>
-              <p class="description">{article.description}</p>
-              <span class="read-more">阅读原文 →</span>
+
+      <div class="list">
+        {articles.map((article) => (
+          <a href={article.url} target="_blank" rel="noopener noreferrer" class="card">
+            <div class="card-meta">
+              <span class="card-date">{article.date}</span>
             </div>
+            <h2 class="card-title">{article.title}</h2>
+            <p class="card-desc">{article.description}</p>
+            <span class="card-action">阅读原文 →</span>
           </a>
-        </article>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
+  </main>
 </Layout>
 
 <style>
-  .showcase-container {
-    max-width: 900px;
+  .page-container {
+    max-width: 800px;
     margin: 0 auto;
-    padding: 2rem;
-    min-height: 100vh;
-    background-color: #f8fafc;
-    color: #1e293b;
-  }
-  
-  .nav {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 3rem;
-    gap: 1.5rem;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 2rem;
-  }
-  
-  .back-link {
-    color: #64748b;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-    align-self: flex-start;
-  }
-  
-  .back-link:hover {
-    color: #4f46e5;
+    padding: 6rem 2rem 4rem;
   }
 
-  .header-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  .page-header {
+    text-align: center;
+    margin-bottom: 4rem;
   }
-  
+
   .page-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #0f172a;
-    margin: 0;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.75rem;
   }
 
-  .subtitle {
-    color: #64748b;
-    font-size: 1.1rem;
-    margin: 0;
+  .page-desc {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.45);
   }
-  
+
   .list {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .card {
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-    border: 1px solid #e2e8f0;
-    transition: all 0.3s ease;
-    border-left: 4px solid transparent;
-  }
-  
-  .card:hover {
-    transform: translateX(5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-    border-left-color: #4f46e5;
-  }
-  
-  .card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    height: 100%;
-  }
-  
-  .content {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .date {
-    font-size: 0.875rem;
-    color: #94a3b8;
-    margin-bottom: 0.5rem;
-    font-family: monospace;
-  }
-  
-  .title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin: 0 0 1rem 0;
-    color: #1e293b;
-    line-height: 1.4;
-  }
-  
-  .description {
-    font-size: 1rem;
-    color: #475569;
-    line-height: 1.6;
-    margin: 0 0 1.5rem 0;
+    gap: 1rem;
   }
 
-  .read-more {
-    font-size: 0.9rem;
+  .card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    transition: all 0.25s;
+    background: transparent;
+  }
+
+  .card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .card-meta {
+    margin-bottom: 0.5rem;
+  }
+
+  .card-date {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: 'Inter', monospace;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
     font-weight: 600;
-    color: #4f46e5;
-    margin-top: auto;
-    display: inline-block;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-desc {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-action {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.2s;
+  }
+
+  .card:hover .card-action {
+    color: #fff;
   }
 </style>
