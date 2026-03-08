@@ -4,43 +4,47 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="简历 - 刘扬">
   <main class="page-body">
-    <div class="resume-container">
+    <article class="paper">
       <!-- Header -->
-      <header class="resume-header">
-        <div class="header-content">
-          <h1 class="name">刘 扬</h1>
-          <p class="role">求职意向：产品实习生 / 用户研究实习生</p>
-          <div class="contact-grid">
-            <div class="contact-item"><span>📱</span> 132-0291-3900</div>
-            <div class="contact-item"><span>✉️</span> <a href="mailto:21yliu12@stu.edu.cn">21yliu12@stu.edu.cn</a></div>
-            <div class="contact-item"><span>💬</span> 微信: LeoYoung_H</div>
+      <header class="masthead">
+        <div class="header-row">
+          <div class="header-main">
+            <span class="masthead-label">Résumé</span>
+            <h1 class="name">刘扬</h1>
+            <p class="role">求职意向：产品经理 · 用户研究</p>
+          </div>
+          <div class="photo-wrapper">
+            <div class="photo" style="background-image: url('/肖像照竖屏.png');"></div>
           </div>
         </div>
-        <div class="photo-wrapper">
-          <div class="photo" style="background-image: url('/肖像照竖屏.png');"></div>
+        <div class="contact-row">
+          <span class="contact-item">132-0291-3900</span>
+          <span class="contact-divider">·</span>
+          <span class="contact-item">21yliu12@stu.edu.cn</span>
+          <span class="contact-divider">·</span>
+          <span class="contact-item">微信: LeoYoung_H</span>
         </div>
       </header>
 
       <!-- Education -->
-      <section class="resume-section">
+      <section class="section">
         <h2 class="section-title">教育背景</h2>
         <div class="edu-item">
-          <div class="item-header">
+          <div class="item-row">
             <span class="org">汕头大学 · 网络与新媒体</span>
             <span class="date">2021.09 – 2026.06</span>
           </div>
-          <p class="edu-detail">学业成绩：总 GPA <span class="highlight">4.01 / 5</span> · <span class="highlight">专业排名第一</span></p>
-          <p class="courses">相关课程：用户研究方法 · 问卷调查与统计分析 · 传播统计学 · 数据库原理与技术 · Python 数据挖掘 · 传播研究方法</p>
+          <p class="edu-detail">学业成绩：总 GPA <span class="hl">4.01 / 5</span> · <span class="hl">专业排名第一</span></p>
+          <p class="courses">相关课程：用户研究方法 · 问卷调查与统计分析 · 传播统计学 · 数据库原理与技术 · Python 数据挖掘</p>
         </div>
       </section>
 
-      <!-- Experience -->
-      <section class="resume-section">
+      <!-- Projects -->
+      <section class="section">
         <h2 class="section-title">互联网项目经验</h2>
         
-        <!-- Wisdio -->
-        <div class="exp-item">
-          <div class="item-header">
+        <div class="project-item">
+          <div class="item-row">
             <div class="org-group">
               <span class="org">Wisdio</span>
               <span class="tag">独立产品</span>
@@ -49,15 +53,14 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <p class="item-subtitle">基于 LLM 的视频学习浏览器插件 · <a href="https://wisdio.org" target="_blank" class="link">wisdio.org</a></p>
           <ul class="bullet-list">
-            <li><strong>痛点拆解：</strong>针对长视频学习中“低效试错、提取关键信息难”等痛点，主导设计 AI 浏览器插件。</li>
-            <li><strong>产品设计：</strong>梳理核心业务流程，设计支持自定义 Prompt、Markdown 实时预览的交互原型；运用 Vibe Coding 独立完成开发部署，缩短开发周期。</li>
+            <li><strong>痛点拆解：</strong>针对长视频学习中"低效试错、提取关键信息难"等痛点，主导设计 AI 浏览器插件。</li>
+            <li><strong>产品设计：</strong>梳理核心业务流程，设计支持自定义 Prompt、Markdown 实时预览的交互原型。</li>
             <li><strong>项目成果：</strong>适配桌面端及移动端，实现端到端视频对话，正进行灰度测试。</li>
           </ul>
         </div>
 
-        <!-- Grammar Check -->
-        <div class="exp-item">
-          <div class="item-header">
+        <div class="project-item">
+          <div class="item-row">
             <div class="org-group">
               <span class="org">Grammar Check</span>
               <span class="tag">独立产品设计</span>
@@ -66,25 +69,42 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <p class="item-subtitle">AI 智能写作校对编辑器</p>
           <ul class="bullet-list">
-            <li><strong>竞品拆解：</strong>识别学术科研人员核心痛点，识别 AI 辅助与作者主导权的平衡问题，主导完成完整 PRD。</li>
-            <li><strong>核心功能：</strong>设计“分片并发校对”机制，约束 JSON Schema 结构化输出，目标成功率 > 99.5%。</li>
-            <li><strong>差异化体验：</strong>设计“上下文聚焦定位”——通过模糊匹配精准溯源并高亮原文，增强沉浸体验。</li>
+            <li><strong>竞品拆解：</strong>深度对标 Grammarly、ProWritingAid，识别学术科研人员核心痛点。</li>
+            <li><strong>核心功能：</strong>设计"分片并发校对"机制，约束 JSON Schema 结构化输出，目标成功率 > 99.5%。</li>
+            <li><strong>差异化体验：</strong>首创"上下文聚焦定位"——通过模糊匹配精准溯源并高亮原文。</li>
+          </ul>
+        </div>
+
+        <div class="project-item">
+          <div class="item-row">
+            <div class="org-group">
+              <span class="org">Cure</span>
+              <span class="tag">毕业设计</span>
+            </div>
+            <span class="date">2025 – 2026</span>
+          </div>
+          <p class="item-subtitle">中风患者居家康复可穿戴设备与严肃游戏</p>
+          <ul class="bullet-list">
+            <li><strong>用户画像：</strong>桌面调研结合实地走访，对3家医院康复科患者进行半结构化访谈。</li>
+            <li><strong>解决方案：</strong>基于前沿医学文献挖掘有效训练动作，结合 CV、EMG 技术设计游戏化康复。</li>
           </ul>
         </div>
       </section>
 
-      <!-- Professional Experience -->
-      <section class="resume-section">
+      <!-- Experience -->
+      <section class="section">
         <h2 class="section-title">实习经历</h2>
+        
         <div class="exp-item">
-          <div class="item-header">
+          <div class="item-row">
             <span class="org">北京日报社 · 实习记者</span>
             <span class="date">2023.07 – 2023.10</span>
           </div>
-          <p class="item-desc">负责医疗、养老领域新闻采编。发表报道 23 篇，其中 3 篇登载于头版。参与“京城养老大调研”，完成 30+ 户深度访谈。</p>
+          <p class="item-desc">负责医疗、养老领域新闻采编。发表报道 23 篇，其中 3 篇登载于头版。参与"京城养老大调研"，完成 30+ 户深度访谈。</p>
         </div>
+
         <div class="exp-item">
-          <div class="item-header">
+          <div class="item-row">
             <span class="org">北青深一度训练营 · 法治新闻采编</span>
             <span class="date">2024.03 – 2024.05</span>
           </div>
@@ -93,84 +113,80 @@ import Layout from '../layouts/Layout.astro';
       </section>
 
       <!-- Skills -->
-      <section class="resume-section">
-        <h2 class="section-title">技能与其它</h2>
-        <div class="skills-grid">
-          <div class="skill-group">
+      <section class="section last-section">
+        <h2 class="section-title">技能与其他</h2>
+        <div class="skills-list">
+          <div class="skill-row">
             <span class="skill-label">设计</span>
             <span class="skill-value">Figma, AI, PS, PR, DaVinci, AE</span>
           </div>
-          <div class="skill-group">
+          <div class="skill-row">
             <span class="skill-label">数据</span>
             <span class="skill-value">SPSS, Excel, MySQL, Python</span>
           </div>
-          <div class="skill-group">
+          <div class="skill-row">
             <span class="skill-label">工具</span>
             <span class="skill-value">Obsidian, Antigravity, Claude Code</span>
           </div>
-          <div class="skill-group">
-            <span class="skill-label">个人</span>
-            <span class="skill-value">院级羽毛球男双冠军</span>
+          <div class="skill-row">
+            <span class="skill-label">其他</span>
+            <span class="skill-value">汕头大学羽毛球校队 · 院级杯男双冠军</span>
           </div>
         </div>
       </section>
-    </div>
+    </article>
   </main>
 </Layout>
 
 <style>
-  .resume-container {
-    max-width: 800px;
+  .paper {
+    max-width: 780px;
     margin: 0 auto;
-    padding: 6rem 2rem 4rem;
+    background: #fff;
+    min-height: 100vh;
   }
 
-  .resume-header {
+  /* Masthead */
+  .masthead {
+    padding: 70px 50px 40px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .masthead-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #999;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .header-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 3rem;
+    margin-bottom: 20px;
   }
 
   .name {
-    font-size: 3rem;
+    font-size: 32px;
     font-weight: 700;
-    letter-spacing: -1px;
-    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
   }
 
   .role {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 1.5rem;
-  }
-
-  .contact-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem 2rem;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  .contact-item span {
-    margin-right: 0.5rem;
-    opacity: 0.7;
-  }
-
-  .contact-item a:hover {
-    color: #fff;
-    text-decoration: underline;
+    font-size: 15px;
+    color: #666;
+    font-weight: 400;
   }
 
   .photo-wrapper {
-    width: 100px;
-    height: 130px;
-    border-radius: 12px;
+    width: 80px;
+    height: 100px;
+    border-radius: 4px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid #e0e0e0;
   }
 
   .photo {
@@ -178,172 +194,188 @@ import Layout from '../layouts/Layout.astro';
     height: 100%;
     background-size: cover;
     background-position: center;
-    filter: grayscale(100%);
-    transition: filter 0.3s;
   }
 
-  .photo-wrapper:hover .photo {
-    filter: grayscale(0%);
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 13px;
+    color: #666;
   }
 
-  .resume-section {
-    margin-bottom: 4rem;
+  .contact-divider {
+    color: #ccc;
+  }
+
+  /* Section */
+  .section {
+    padding: 35px 50px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .last-section {
+    border-bottom: none;
+    padding-bottom: 50px;
   }
 
   .section-title {
-    font-size: 0.85rem;
+    font-size: 11px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.4);
+    color: #999;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #1a1a1a;
+    display: inline-block;
   }
 
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  .item-header {
+  /* Items */
+  .item-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.75rem;
+    align-items: baseline;
+    margin-bottom: 6px;
   }
 
   .org {
-    font-size: 1.2rem;
+    font-size: 16px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
   }
 
   .org-group {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 10px;
   }
 
   .tag {
-    font-size: 0.7rem;
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.6);
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
+    font-size: 9px;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 2px 6px;
     font-weight: 500;
+    letter-spacing: 0.5px;
   }
 
   .date {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.35);
-    font-family: 'Inter', monospace;
+    font-size: 12px;
+    color: #999;
+    font-family: Georgia, serif;
+    flex-shrink: 0;
   }
 
   .edu-detail, .item-subtitle {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 0.5rem;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
   }
 
-  .highlight {
-    color: #fff;
+  .hl {
     font-weight: 600;
+    color: #1a1a1a;
   }
 
   .courses, .item-desc {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.45);
-    line-height: 1.6;
-  }
-
-  .bullet-list {
-    margin: 1rem 0;
-    padding-left: 1.2rem;
-    list-style: none;
-  }
-
-  .bullet-list li {
-    font-size: 0.92rem;
-    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+    color: #888;
     line-height: 1.7;
-    margin-bottom: 0.75rem;
-    position: relative;
-  }
-
-  .bullet-list li::before {
-    content: '•';
-    position: absolute;
-    left: -1.2rem;
-    color: rgba(255, 255, 255, 0.2);
-  }
-
-  .bullet-list li strong {
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 600;
-  }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .skill-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .skill-label {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.3);
-    font-weight: 600;
-  }
-
-  .skill-value {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.5;
+    margin: 0;
   }
 
   .link {
-    color: rgba(255, 255, 255, 0.4);
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    transition: color 0.2s;
+    color: #c9463d;
   }
 
-  .link:hover {
-    color: #fff;
+  /* Project & Experience Items */
+  .project-item, .exp-item {
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #f0f0f0;
   }
 
+  .project-item:last-child, .exp-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .bullet-list {
+    margin: 10px 0 0;
+    padding-left: 18px;
+  }
+
+  .bullet-list li {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 6px;
+  }
+
+  .bullet-list li strong {
+    color: #333;
+    font-weight: 500;
+  }
+
+  /* Skills */
+  .skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .skill-row {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 20px;
+    font-size: 13px;
+  }
+
+  .skill-label {
+    color: #999;
+    font-weight: 500;
+  }
+
+  .skill-value {
+    color: #666;
+  }
+
+  /* Responsive */
   @media (max-width: 600px) {
-    .resume-header {
-      flex-direction: column-reverse;
-      gap: 2rem;
+    .masthead {
+      padding: 60px 25px 35px;
     }
-    .item-header {
+
+    .section {
+      padding: 30px 25px;
+    }
+
+    .header-row {
+      flex-direction: column-reverse;
+      gap: 20px;
+    }
+
+    .item-row {
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.25rem;
+      gap: 4px;
     }
+
     .name {
-      font-size: 2.5rem;
+      font-size: 26px;
+    }
+
+    .contact-row {
+      flex-wrap: wrap;
     }
   }
 
-  /* Print optimization */
+  /* Print */
   @media print {
-    body { background: #fff; color: #000; }
-    .resume-container { padding: 0; max-width: 100%; }
+    .page-body { padding-top: 0; }
+    .paper { max-width: 100%; }
     .site-nav { display: none; }
-    .section-title::after { background: #eee; }
-    .tag { border: 1px solid #eee; }
-    .date, .role, .skill-label { color: #666; }
-    .org, .name, .highlight { color: #000; }
   }
 </style>

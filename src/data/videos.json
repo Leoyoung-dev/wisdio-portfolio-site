@@ -1,18 +1,31 @@
 [
     {
         "id": "wisdio-promo",
-        "title": "Wisdio Promo Video",
-        "description": "产品宣传视频 - 基于大模型的视频学习浏览器插件。",
+        "title": "Wisdio 产品宣传视频",
+        "description": "基于大语言模型的视频学习浏览器插件宣传片，展示核心功能：AI对话、智能总结、自定义Prompt。",
         "thumbnail": "/mmexport1772860222741.jpg",
+        "video": "/wisdio-promo.mp4",
         "date": "2024-05",
-        "url": "#"
+        "category": "产品宣传",
+        "url": "/wisdio-promo.mp4"
     },
     {
-        "id": "cure-demo",
-        "title": "Cure 康复训练游戏 Demo",
-        "description": "基于 CV 与 EMG 技术的中风患者居家康复系统展示演示视频。",
+        "id": "isometry",
+        "title": "Isometry 等距动画",
+        "description": "使用After Effects制作的等距视角动态图形作品，展现三维空间感的创意表达。",
         "thumbnail": "/肖像照横屏.png",
-        "date": "2024-06",
-        "url": "#"
+        "video": "/isometry.mp4",
+        "date": "2023-12",
+        "category": "动效设计",
+        "url": "/isometry.mp4"
+    },
+    {
+        "id": "reading-report",
+        "title": "硬核读书报告",
+        "description": "Bilibili系列视频，以深度视角解读经典书籍与前沿思想。",
+        "thumbnail": "/肖像照横屏.png",
+        "date": "2023-2024",
+        "category": "内容创作",
+        "url": "https://space.bilibili.com/3546965438630030"
     }
 ]

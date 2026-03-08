@@ -1,110 +1,708 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import articles from '../../data/articles.json';
 ---
 
-<Layout title="发表文章 - 刘扬">
+<Layout title="作品集 - 刘扬">
   <main class="page-body">
-    <div class="page-container">
-      <div class="page-header">
-        <h1 class="page-title">发表文章</h1>
-        <p class="page-desc">过去产出与发表的文章、报道合集</p>
-      </div>
+    <article class="paper">
+      <header class="page-header">
+        <span class="page-label">Portfolio</span>
+        <h1 class="page-title">作品集</h1>
+      </header>
 
-      <div class="list">
-        {articles.map((article) => (
-          <a href={article.url} target="_blank" rel="noopener noreferrer" class="card">
-            <div class="card-meta">
-              <span class="card-date">{article.date}</span>
+      <!-- Main Tab Navigation -->
+      <nav class="tab-nav main-tabs">
+        <button class="tab-btn active" data-tab="data-analysis">数据分析类</button>
+        <button class="tab-btn" data-tab="media-design">媒体设计类</button>
+      </nav>
+
+      <!-- 数据分析类 -->
+      <section class="tab-content active" id="data-analysis">
+        <div class="category-header">
+          <h2 class="category-title">问卷调查类</h2>
+        </div>
+        
+        <div class="works-grid">
+          <a href="/data-analysis-report.html" class="work-card">
+            <div class="card-header">
+              <span class="card-type">研究报告</span>
+              <span class="card-date">2024-07</span>
             </div>
-            <h2 class="card-title">{article.title}</h2>
-            <p class="card-desc">{article.description}</p>
-            <span class="card-action">阅读原文 →</span>
+            <h3 class="card-title">算法新闻与人工新闻区分度检验研究</h3>
+            <p class="card-desc">运用问卷调查法研究受众对AI生成新闻的辨识能力。主导问卷设计，回收问卷800+，使用SPSS进行信效度检验与定量分析。</p>
+            <span class="card-link">查看完整报告 →</span>
           </a>
-        ))}
-      </div>
-    </div>
+          
+          <div class="work-card internal">
+            <div class="card-header">
+              <span class="card-type">问卷设计</span>
+              <span class="card-status">内部文档</span>
+            </div>
+            <h3 class="card-title">校级大创项目问卷设计文档</h3>
+            <p class="card-desc">汕头大学大学生创新创业训练计划项目：算法新闻与人工新闻区分度研究。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 媒体设计类 -->
+      <section class="tab-content" id="media-design">
+        <!-- Sub Tab Navigation -->
+        <nav class="tab-nav sub-tabs">
+          <button class="tab-btn active" data-subtab="video">视频类</button>
+          <button class="tab-btn" data-subtab="article">文字报道类</button>
+          <button class="tab-btn" data-subtab="newmedia">新媒体类</button>
+          <button class="tab-btn" data-subtab="figma">Figma设计类</button>
+        </nav>
+
+        <!-- 视频类 -->
+        <div class="subtab-content active" id="video">
+          <div class="works-grid">
+            <div class="work-card video-card">
+              <div class="video-wrapper">
+                <video controls preload="metadata" poster="/wisdio-cover.jpg">
+                  <source src="/wisdio-promo.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div class="card-header">
+                <span class="card-type">产品宣传</span>
+              </div>
+              <h3 class="card-title">Wisdio 产品宣传视频</h3>
+              <p class="card-desc">基于大语言模型的视频学习浏览器插件宣传片，展示AI对话、智能总结等核心功能。</p>
+            </div>
+            
+            <div class="work-card video-card">
+              <div class="video-wrapper">
+                <video controls preload="metadata">
+                  <source src="/isometry.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div class="card-header">
+                <span class="card-type">动效设计</span>
+              </div>
+              <h3 class="card-title">Isometry 等距动画</h3>
+              <p class="card-desc">使用After Effects制作的等距视角动态图形作品，展现三维空间感。</p>
+            </div>
+            
+            <a href="https://space.bilibili.com/3546965438630030" target="_blank" rel="noopener noreferrer" class="work-card">
+              <div class="card-header">
+                <span class="card-type">内容创作</span>
+                <span class="card-date">2023-2024</span>
+              </div>
+              <h3 class="card-title">硬核读书报告</h3>
+              <p class="card-desc">Bilibili系列视频，以深度视角解读经典书籍与前沿思想。</p>
+              <span class="card-link">访问 Bilibili →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 文字报道类 -->
+        <div class="subtab-content" id="article">
+          <div class="works-grid">
+            <!-- 以新探古 - 可展开卡片 -->
+            <div class="work-card expandable-card" id="yixin-tangu-card">
+              <div class="card-header">
+                <span class="card-type">北京日报</span>
+                <span class="card-date">2023-09-14</span>
+              </div>
+              <h3 class="card-title">以新探古——科技"重燃"千年炉影</h3>
+              <p class="card-desc">聚焦大庄科矿冶遗址考古工作，报道超声波、X射线荧光、三维扫描等科技手段如何助力辽代冶铁遗址的深度发掘。</p>
+              <button class="expand-btn" data-target="yixin-tangu-content">
+                <span class="expand-text">展开详情</span>
+                <span class="expand-icon">↓</span>
+              </button>
+              <div class="expandable-content" id="yixin-tangu-content">
+                <div class="content-inner">
+                  <img src="/yixin-tangu.jpg" alt="以新探古" class="expand-image" />
+                  <p class="expand-desc">该报道刊登于《北京日报》2023年9月14日第12版，聚焦北京延庆大庄科矿冶遗址的考古工作，探讨现代科技手段如何助力辽代冶铁遗址的深度发掘与研究。</p>
+                  <a href="https://bjrbdzb.bjd.com.cn/bjrb/mobile/2023/20230914/20230914_012/content_20230914_012_1.htm" target="_blank" rel="noopener noreferrer" class="expand-link">阅读原文 →</a>
+                </div>
+              </div>
+            </div>
+            
+            <a href="/feng-yu-jian-cheng.html" class="work-card">
+              <div class="card-header">
+                <span class="card-type">人物特写</span>
+                <span class="card-date">2023</span>
+              </div>
+              <h3 class="card-title">风雨兼程</h3>
+              <p class="card-desc">跟随垃圾清运车司机阿辉的一天，记录城市运转背后不为人知的付出与坚守。</p>
+              <span class="card-link">阅读全文 →</span>
+            </a>
+            
+            <div class="work-card internal">
+              <div class="card-header">
+                <span class="card-type">深度报道</span>
+                <span class="card-status">内部文档</span>
+              </div>
+              <h3 class="card-title">罪者的"难题"</h3>
+              <p class="card-desc">北青深一度训练营期间，针对刑事案件进行深度调查。</p>
+            </div>
+          </div>
+
+          <!-- 北京日报其他报道 - 可展开列表 -->
+          <div class="article-list-section">
+            <div class="list-header" id="bjd-reports-toggle">
+              <h4 class="list-title">北京日报实习期间发表报道</h4>
+              <span class="list-count">18篇</span>
+              <span class="list-toggle-icon">+</span>
+            </div>
+            <ul class="article-list" id="bjd-reports-list">
+              <li>市级专家赴受灾地区指导除四害</li>
+              <li>对重点岗位持续开展防暑降温工作</li>
+              <li>贴上三伏贴能"躺瘦"？专家：三伏贴没有直接减肥功效</li>
+              <li>冬病夏治三伏贴开贴</li>
+              <li>一个夜班接诊300患儿</li>
+              <li>邀观众静下心来细细看展，国家典籍博物馆开启夜场</li>
+              <li>北京专家"送服务"到河北</li>
+              <li>"液断""生酮"减肥法别给孩子用</li>
+              <li>严密监测，洪水后蚊虫大量孳生</li>
+              <li>洪灾后蚊虫密度高出国家标准五六倍</li>
+              <li>灾后心理疏导如何开展？专家建议帮助重点人群度过"四期"建立"三感"</li>
+              <li>网红减肥法不适合儿童</li>
+              <li>满足患者看病时间多元化需求，又有多家医院增晚间门诊</li>
+              <li>孩子成绩不理想不等于学习困难</li>
+              <li>家医社工联手上门送服务，卧床老人医养有新招</li>
+              <li>20处全龄友好公园年内完成改造，老年护理中心将达21家</li>
+              <li>通州区将为在校初二女生接种HPV疫苗</li>
+              <li>家里装上扶手，老人得劲儿！</li>
+              <li>老年大学开了不少"潮"课</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 新媒体类 -->
+        <div class="subtab-content" id="newmedia">
+          <div class="works-grid">
+            <a href="https://mp.weixin.qq.com/s/BMlujFyYD3cfApcgazzUMA" target="_blank" rel="noopener noreferrer" class="work-card">
+              <div class="card-header">
+                <span class="card-type">微信公众号</span>
+                <span class="card-date">2023-07</span>
+              </div>
+              <h3 class="card-title">潮汕预制菜之王</h3>
+              <p class="card-desc">聚焦地方特色产业，探讨传统美食与现代食品工业的融合发展。</p>
+              <span class="card-link">阅读原文 →</span>
+            </a>
+            
+            <a href="https://mp.weixin.qq.com/s/ZEt4dJlCMUagitF5prlSHA" target="_blank" rel="noopener noreferrer" class="work-card">
+              <div class="card-header">
+                <span class="card-type">微信公众号</span>
+              </div>
+              <h3 class="card-title">新媒体运营系列报道</h3>
+              <p class="card-desc">多篇新媒体内容创作，涵盖社会观察、人物特写等题材。</p>
+              <span class="card-link">阅读原文 →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Figma设计类 -->
+        <div class="subtab-content" id="figma">
+          <div class="works-grid">
+            <a href="https://www.figma.com/design/mV70F2Kw6i3p731mxYiL5U/Wisdio-AI-%E2%80%93-UI-UX-Mockups?node-id=0-1&m=dev" target="_blank" rel="noopener noreferrer" class="work-card">
+              <div class="card-header">
+                <span class="card-type">UI/UX Design</span>
+              </div>
+              <h3 class="card-title">Wisdio AI – UI/UX Mockups</h3>
+              <p class="card-desc">Wisdio 产品的交互原型与界面设计，包含完整用户流程与交互细节。</p>
+              <span class="card-link">在 Figma 中查看 →</span>
+            </a>
+            
+            <a href="https://wisdio.org" target="_blank" rel="noopener noreferrer" class="work-card">
+              <div class="card-header">
+                <span class="card-type">Website</span>
+              </div>
+              <h3 class="card-title">Wisdio 官网</h3>
+              <p class="card-desc">产品官网设计与开发，展示产品功能与价值主张。</p>
+              <span class="card-link">访问网站 →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </article>
   </main>
 </Layout>
 
 <style>
-  .page-container {
-    max-width: 800px;
+  .paper {
+    max-width: 900px;
     margin: 0 auto;
-    padding: 6rem 2rem 4rem;
+    background: #fff;
+    min-height: 100vh;
   }
 
   .page-header {
-    text-align: center;
-    margin-bottom: 4rem;
+    padding: 70px 50px 30px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .page-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #999;
+    margin-bottom: 10px;
+    display: block;
   }
 
   .page-title {
-    font-size: 2.5rem;
+    font-size: 28px;
     font-weight: 700;
     letter-spacing: -0.5px;
-    margin-bottom: 0.75rem;
   }
 
-  .page-desc {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.45);
-  }
-
-  .list {
+  /* Tab Navigation */
+  .tab-nav {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fafafa;
   }
 
-  .card {
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem 1.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    transition: all 0.25s;
+  .main-tabs {
+    padding: 0 50px;
+  }
+
+  .sub-tabs {
+    padding: 0 30px;
+    background: #fff;
+    margin-bottom: 25px;
+  }
+
+  .tab-btn {
+    padding: 16px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
     background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+    font-family: inherit;
   }
 
-  .card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.04);
+  .tab-btn:hover {
+    color: #1a1a1a;
   }
 
-  .card-meta {
-    margin-bottom: 0.5rem;
+  .tab-btn.active {
+    color: #1a1a1a;
+  }
+
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #c9463d;
+  }
+
+  .sub-tabs .tab-btn {
+    padding: 14px 20px;
+    font-size: 13px;
+  }
+
+  /* Tab Content */
+  .tab-content {
+    display: none;
+    padding: 30px 50px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* Subtab Content */
+  .subtab-content {
+    display: none;
+  }
+
+  .subtab-content.active {
+    display: block;
+  }
+
+  /* Category Header */
+  .category-header {
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .category-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    display: inline-block;
+  }
+
+  .category-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: #c9463d;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  /* Works Grid */
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  /* Work Card */
+  .work-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    transition: all 0.2s;
+  }
+
+  .work-card:hover {
+    border-color: #ccc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .work-card.internal {
+    background: #fafafa;
+    border-style: dashed;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .card-type {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #c9463d;
+    font-weight: 500;
   }
 
   .card-date {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.3);
-    font-family: 'Inter', monospace;
+    font-size: 11px;
+    color: #999;
+    font-family: Georgia, serif;
+  }
+
+  .card-status {
+    font-size: 9px;
+    color: #999;
+    padding: 2px 6px;
+    border: 1px solid #ddd;
+    font-weight: 500;
   }
 
   .card-title {
-    font-size: 1.2rem;
+    font-size: 15px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
+    color: #1a1a1a;
+    margin-bottom: 8px;
     line-height: 1.4;
-    margin-bottom: 0.75rem;
   }
 
   .card-desc {
-    font-size: 0.92rem;
-    color: rgba(255, 255, 255, 0.4);
-    line-height: 1.7;
-    margin-bottom: 1.25rem;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    flex-grow: 1;
   }
 
-  .card-action {
-    font-size: 0.85rem;
+  .card-link {
+    font-size: 11px;
+    color: #999;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.5);
     transition: color 0.2s;
   }
 
-  .card:hover .card-action {
-    color: #fff;
+  .work-card:hover .card-link {
+    color: #c9463d;
+  }
+
+  /* Expandable Card */
+  .expandable-card {
+    cursor: default;
+  }
+
+  .expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #666;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    margin-top: auto;
+  }
+
+  .expand-btn:hover {
+    background: #f0f0f0;
+    color: #c9463d;
+    border-color: #c9463d;
+  }
+
+  .expand-icon {
+    transition: transform 0.3s;
+  }
+
+  .expand-btn.expanded .expand-icon {
+    transform: rotate(180deg);
+  }
+
+  .expand-btn.expanded .expand-text {
+    display: none;
+  }
+
+  .expandable-content {
+    display: none;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .expandable-content.show {
+    display: block;
+  }
+
+  .content-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .expand-image {
+    width: 100%;
+    height: auto;
+    border: 1px solid #e0e0e0;
+  }
+
+  .expand-desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .expand-link {
+    font-size: 11px;
+    color: #c9463d;
+    font-weight: 500;
+  }
+
+  .expand-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Article List Section */
+  .article-list-section {
+    margin-top: 30px;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+  }
+
+  .list-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    user-select: none;
+  }
+
+  .list-header:hover {
+    background: #f0f0f0;
+  }
+
+  .list-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    flex-grow: 1;
+  }
+
+  .list-count {
+    font-size: 11px;
+    color: #c9463d;
+    font-weight: 500;
+    padding: 2px 8px;
+    background: rgba(201, 70, 61, 0.1);
+  }
+
+  .list-toggle-icon {
+    font-size: 18px;
+    color: #999;
+    transition: transform 0.3s;
+    width: 20px;
+    text-align: center;
+  }
+
+  .list-header.expanded .list-toggle-icon {
+    transform: rotate(45deg);
+  }
+
+  .article-list {
+    display: none;
+    list-style: none;
+    padding: 0 20px 20px;
+    margin: 0;
+  }
+
+  .article-list.show {
+    display: block;
+  }
+
+  .article-list li {
+    position: relative;
+    padding: 10px 0 10px 16px;
+    font-size: 13px;
+    color: #333;
+    border-bottom: 1px dashed #e0e0e0;
+    line-height: 1.5;
+  }
+
+  .article-list li:last-child {
+    border-bottom: none;
+  }
+
+  .article-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: #c9463d;
+    font-weight: bold;
+  }
+
+  /* Video Card */
+  .video-card {
+    grid-column: span 2;
+  }
+
+  .video-wrapper {
+    margin-bottom: 15px;
+    background: #000;
+  }
+
+  .video-wrapper video {
+    width: 100%;
+    display: block;
+    max-height: 400px;
+    object-fit: contain;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .page-header {
+      padding: 60px 25px 20px;
+    }
+
+    .main-tabs {
+      padding: 0 25px;
+    }
+
+    .tab-content {
+      padding: 25px;
+    }
+
+    .sub-tabs {
+      padding: 0 15px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 14px 16px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .works-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .video-card {
+      grid-column: span 1;
+    }
   }
 </style>
+
+<script>
+  // Main Tab switching
+  const mainTabBtns = document.querySelectorAll('.main-tabs .tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  mainTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabId = btn.dataset.tab;
+      
+      mainTabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      tabContents.forEach(content => {
+        content.classList.remove('active');
+        if (content.id === tabId) {
+          content.classList.add('active');
+        }
+      });
+    });
+  });
+
+  // Sub Tab switching (for media-design)
+  const subTabBtns = document.querySelectorAll('.sub-tabs .tab-btn');
+  const subtabContents = document.querySelectorAll('.subtab-content');
+
+  subTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const subtabId = btn.dataset.subtab;
+      
+      subTabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      subtabContents.forEach(content => {
+        content.classList.remove('active');
+        if (content.id === subtabId) {
+          content.classList.add('active');
+        }
+      });
+    });
+  });
+
+  // Expandable Card
+  document.querySelectorAll('.expand-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.dataset.target;
+      const content = document.getElementById(targetId);
+      
+      btn.classList.toggle('expanded');
+      content.classList.toggle('show');
+      
+      const textSpan = btn.querySelector('.expand-text');
+      if (btn.classList.contains('expanded')) {
+        textSpan.textContent = '收起详情';
+      } else {
+        textSpan.textContent = '展开详情';
+      }
+    });
+  });
+
+  // Article List Toggle
+  const listHeader = document.getElementById('bjd-reports-toggle');
+  const articleList = document.getElementById('bjd-reports-list');
+
+  listHeader.addEventListener('click', () => {
+    listHeader.classList.toggle('expanded');
+    articleList.classList.toggle('show');
+  });
+</script>

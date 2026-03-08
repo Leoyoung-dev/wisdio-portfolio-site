@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>算法新闻与人工新闻区分度检验 | 数据分析报告</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #1a1a1a;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --light-gray: #999999;
+            --border-gray: #e0e0e0;
+            --bg-light: #fafafa;
+            --accent: #c9463d;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', 'Source Serif 4', Georgia, 'Times New Roman', serif;
+            background: #ffffff;
+            color: var(--black);
+            line-height: 1.9;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .paper {
+            max-width: 780px;
+            margin: 0 auto;
+            background: #ffffff;
+        }
+
+        /* 头部 */
+        header {
+            padding: 80px 50px 50px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .report-type {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            color: var(--black);
+        }
+
+        .subtitle {
+            font-size: 17px;
+            color: var(--medium-gray);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .meta {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-gray);
+            display: flex;
+            gap: 50px;
+            font-size: 13px;
+            color: var(--medium-gray);
+        }
+
+        .meta-item span {
+            display: block;
+            font-size: 10px;
+            color: var(--light-gray);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+        }
+
+        /* 摘要 */
+        .abstract {
+            background: var(--bg-light);
+            padding: 35px 50px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .abstract-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .abstract p {
+            font-size: 15px;
+            color: var(--dark-gray);
+            line-height: 2;
+            margin: 0;
+        }
+
+        .keywords {
+            margin-top: 20px;
+            font-size: 13px;
+            color: var(--medium-gray);
+        }
+
+        .keywords strong {
+            color: var(--dark-gray);
+        }
+
+        /* 正文 */
+        article {
+            padding: 50px;
+        }
+
+        section {
+            margin-bottom: 55px;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--black);
+            display: inline-block;
+            color: var(--black);
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 35px 0 18px;
+            color: var(--dark-gray);
+        }
+
+        h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 25px 0 12px;
+            color: var(--medium-gray);
+        }
+
+        p {
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        /* 强调 */
+        .hl {
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .hl-num {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* 引用块 */
+        blockquote {
+            border-left: 2px solid var(--border-gray);
+            padding-left: 20px;
+            margin: 28px 0;
+            font-style: italic;
+            color: var(--medium-gray);
+            line-height: 1.8;
+        }
+
+        blockquote p {
+            margin-bottom: 0;
+        }
+
+        /* 发现框 */
+        .finding {
+            background: var(--bg-light);
+            padding: 22px 28px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .finding::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent);
+        }
+
+        .finding-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .finding p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--medium-gray);
+            line-height: 1.9;
+        }
+
+        /* 图表区域 */
+        .figure {
+            margin: 35px 0;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-gray);
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .figure-header {
+            margin-bottom: 20px;
+        }
+
+        .figure-num {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 6px;
+        }
+
+        .figure-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 4px;
+        }
+
+        .figure-caption {
+            font-size: 13px;
+            color: var(--light-gray);
+            font-style: italic;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 260px;
+        }
+
+        .figure-note {
+            font-size: 12px;
+            color: var(--light-gray);
+            margin-top: 15px;
+            padding-left: 15px;
+            border-left: 2px solid var(--border-gray);
+        }
+
+        /* 双栏图表 */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+            margin: 35px 0;
+        }
+
+        .two-col .chart-container {
+            height: 200px;
+        }
+
+        /* 表格 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 22px 0;
+            font-size: 13px;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 2px solid var(--black);
+            font-weight: 600;
+            background: var(--bg-light);
+            font-size: 12px;
+        }
+
+        .data-table td {
+            padding: 11px 15px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .data-table tr:hover {
+            background: var(--bg-light);
+        }
+
+        .data-table .num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            font-family: Georgia, serif;
+        }
+
+        .data-table .sig {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .data-table .note {
+            font-size: 11px;
+            color: var(--light-gray);
+            font-style: italic;
+            border-bottom: none;
+        }
+
+        /* 统计卡片 */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border-gray);
+            margin: 28px 0;
+            border: 1px solid var(--border-gray);
+        }
+
+        .stat-item {
+            background: #fff;
+            padding: 22px 15px;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--black);
+            line-height: 1;
+            font-family: Georgia, serif;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--light-gray);
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 列表 */
+        ul, ol {
+            margin: 18px 0 18px 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        /* 方法说明框 */
+        .method-note {
+            background: var(--bg-light);
+            padding: 18px 22px;
+            font-size: 13px;
+            color: var(--medium-gray);
+            margin: 18px 0;
+        }
+
+        .method-note strong {
+            color: var(--dark-gray);
+        }
+
+        /* 小结框 */
+        .summary-box {
+            background: var(--bg-light);
+            padding: 22px 25px;
+            margin: 25px 0;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .summary-box strong {
+            color: var(--dark-gray);
+        }
+
+        /* 结论部分 */
+        .conclusion {
+            border-top: 3px solid var(--black);
+            padding-top: 40px;
+            margin-top: 60px;
+        }
+
+        .conclusion h2 {
+            border-bottom: none;
+            margin-bottom: 25px;
+        }
+
+        .recommendation {
+            margin: 25px 0;
+            padding: 22px 25px;
+            border: 1px solid var(--border-gray);
+        }
+
+        .recommendation-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .recommendation-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background: var(--black);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 14px;
+        }
+
+        .recommendation p {
+            margin: 0;
+            margin-left: 34px;
+            font-size: 14px;
+            color: var(--medium-gray);
+        }
+
+        /* 页脚 */
+        footer {
+            padding: 50px;
+            border-top: 1px solid var(--border-gray);
+            text-align: center;
+        }
+
+        .footer-info {
+            font-size: 12px;
+            color: var(--light-gray);
+            letter-spacing: 0.5px;
+        }
+
+        .footer-info span {
+            margin: 0 20px;
+        }
+
+        /* 分隔线 */
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-gray);
+            margin: 35px 0;
+        }
+
+        /* 打印优化 */
+        @media print {
+            body { font-size: 11pt; }
+            .chart-container { height: 180px; }
+            .stat-grid { break-inside: avoid; }
+            .figure { page-break-inside: avoid; }
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            header, article { padding: 30px 25px; }
+            h1 { font-size: 24px; }
+            .two-col { grid-template-columns: 1fr; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .meta { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="paper">
+        <header>
+            <div class="report-type">Data Analysis Report</div>
+            <h1>算法新闻与人工新闻区分度检验</h1>
+            <p class="subtitle">基于ChatGPT与文心一言生成新闻的受众识别能力实证研究</p>
+            <div class="meta">
+                <div class="meta-item">
+                    <span>Sample Size</span>
+                    795 Valid Responses
+                </div>
+                <div class="meta-item">
+                    <span>Methodology</span>
+                    Regression Analysis · ANOVA · Chi-square Test
+                </div>
+                <div class="meta-item">
+                    <span>Affiliation</span>
+                    Shantou University
+                </div>
+            </div>
+        </header>
+
+        <div class="abstract">
+            <div class="abstract-label">Abstract</div>
+            <p>本研究通过问卷调查方式采集<span class="hl-num">795份有效样本</span>，系统探索受众对ChatGPT与文心一言生成新闻的识别能力及其影响因素。研究发现：受众对AI生成新闻的识别能力受教育程度、专业背景、媒体使用习惯、算法素养等因素显著影响。高等教育群体、互联网高频使用者、算法素养较高的受众表现出更强的识别能力。其中，<span class="hl-num">21-30岁</span>群体识别能力最强，呈现反直觉的年龄效应。算法素养对识别正确率具有高度显著影响（p&lt;0.001），是提升公众鉴别能力的关键因素。本研究为理解公众对AI技术应用认知提供了实证依据，为AI新闻内容优化、受众教育及监管政策制定提供了科学参考。</p>
+            <div class="keywords">
+                <strong>关键词：</strong>算法新闻；人工新闻；区分度检验；回归分析；算法素养
+            </div>
+        </div>
+
+        <article>
+            <!-- 研究背景 -->
+            <section>
+                <h2>一、研究背景与方法</h2>
+                
+                <p>随着人工智能技术的快速发展，ChatGPT、文心一言等大语言模型已具备生成高质量新闻内容的能力。根据Reuters Institute的报告，全球已有超过三分之一的主要新闻机构开始探索AI技术辅助内容生产。这一趋势引发了一个核心问题：普通受众能否准确区分算法生成与人工撰写的新闻？</p>
+                
+                <p>这一问题的重要性不仅关乎新闻传播的公信力，更涉及AI内容监管、公众媒介素养、以及"深度伪造"（Deepfake）信息的治理等多个重要议题。如果受众无法有效识别AI生成内容，那么信息生态系统的可信度将面临严峻挑战。</p>
+
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="stat-num">795</div>
+                        <div class="stat-label">Valid Sample</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">9</div>
+                        <div class="stat-label">Test Articles</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">2</div>
+                        <div class="stat-label">AI Models</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">19</div>
+                        <div class="stat-label">Occupations</div>
+                    </div>
+                </div>
+
+                <h3>1.1 研究问题</h3>
+                <p>本研究聚焦以下核心问题：</p>
+                <ol>
+                    <li>受众能否有效区分AI生成与人工撰写的新闻内容？</li>
+                    <li>哪些因素影响受众的识别能力？</li>
+                    <li>不同AI模型（ChatGPT vs. 文心一言）生成内容的可识别度是否存在差异？</li>
+                    <li>算法素养如何影响受众的AI内容识别能力？</li>
+                </ol>
+
+                <h3>1.2 研究设计</h3>
+                <p>本研究采用问卷调查法，选取9篇新闻作为测试材料。其中，ChatGPT生成3篇、文心一言生成3篇、人工撰写3篇。新闻选题涵盖社会新闻、科技新闻、经济新闻等类别，以控制题材效应。</p>
+
+                <div class="method-note">
+                    <strong>测量方式：</strong>受访者对每篇新闻进行1-10分评分。1分表示"一定是算法生成"，10分表示"一定是人工撰写"。评分越高，表示受访者越倾向于认为该新闻为人工撰写。研究同时记录受访者的人口学特征、媒体使用习惯、AI认知水平等信息。
+                </div>
+
+                <h3>1.3 分析方法</h3>
+                <p>数据分析采用多元线性回归和单因素方差分析。回归分析考察各因素对新闻评分的影响方向和强度；方差分析检验不同群体间识别正确率的差异。显著性水平设定为α=0.05。对于多重比较问题，采用Bonferroni校正。</p>
+
+                <p>此外，研究采用熵权法对算法素养各维度进行客观赋权，构建综合算法素养指数。卡方检验用于分析分类变量间的关联性。</p>
+            </section>
+
+            <!-- 样本特征 -->
+            <section>
+                <h2>二、样本特征</h2>
+                
+                <p>本研究通过在线问卷平台发放，经数据清洗后获得有效样本795份。样本覆盖不同年龄、教育程度、职业背景的受众群体。以下对样本的人口学特征进行描述性分析。</p>
+
+                <h3>2.1 人口学特征</h3>
+
+                <div class="figure">
+                    <div class="figure-header">
+                        <div class="figure-num">图 1</div>
+                        <div class="figure-title">样本人口学特征分布</div>
+                        <div class="figure-caption">性别、年龄与教育程度分布情况</div>
+                    </div>
+                    <div class="two-col">
+                        <div>
+                            <div class="chart-container" id="genderAgeChart"></div>
+                        </div>
+                        <div>
+                            <div class="chart-container" id="eduChart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <strong>样本概况：</strong>女性受访者占比<strong>69.3%</strong>（551人），男性占比<strong>30.7%</strong>（244人）。年龄集中于<strong>21-40岁</strong>（占比73.2%），其中21-30岁占比37.2%，31-40岁占比36.0%。教育程度以<strong>大学本科</strong>为主（558人，70.2%），研究生及以上学历占比13.5%（博士8人、研究生99人）。
+                </div>
+
+                <h3>2.2 职业与专业分布</h3>
+                <p>职业分布方面，<span class="hl">在校学生</span>（203人，25.5%）和<span class="hl">企业职员</span>（233人，29.3%）为主要群体，其次为企业管理者（46人）、个体户（38人）、党政机关工作者（30人）等。样本覆盖19个职业类别，具有一定的职业多样性。</p>
+
+                <p>专业背景方面，管理学（256人，32.2%）、工学（107人，13.5%）、经济学（105人，13.2%）为前三大专业。新闻传播学相关专业占比7.4%（59人），这对于考察专业背景对AI新闻识别能力的影响提供了基础。</p>
+
+                <h3>2.3 AI认知与使用情况</h3>
+                <p>受访者对AI大模型的认知程度整体较高。"比较了解"（440人，55.3%）和"非常了解"（56人，7.0%）合计占比62.3%，仅1.1%（9人）表示"完全不了解"。这表明样本整体对AI技术具有一定认知基础。</p>
+
+                <div class="figure">
+                    <div class="figure-header">
+                        <div class="figure-num">图 2</div>
+                        <div class="figure-title">AI大模型使用情况</div>
+                        <div class="figure-caption">使用频率与主要目的分布</div>
+                    </div>
+                    <div class="chart-container" id="aiUseChart" style="height: 220px;"></div>
+                    <p class="figure-note">数据来源：问卷调查（n=795）。使用目的可多选。</p>
+                </div>
+
+                <p>在使用频率方面，"一周几次"占比最高（330人，41.5%），"一月几次"次之（235人，29.6%），"几乎每天"使用AI大模型的受访者占比13.5%（107人）。在AI使用目的上，<span class="hl-num">89.7%</span>的受访者表示使用AI"辅助完成工作相关内容"，<span class="hl-num">56.2%</span>表示用于"辅助阅读文献、完成课程任务"。这表明AI大模型已在受访者群体中得到广泛应用，且主要集中于工作与学习场景。</p>
+            </section>
+
+            <!-- 新闻识别结果 -->
+            <section>
+                <h2>三、新闻识别结果</h2>
+
+                <p>针对9篇测试新闻，受访者需判断每篇新闻是算法生成还是人工撰写。评分范围为1-10分，得分越高表示受访者越倾向于认为该新闻为人工撰写。本节对评分结果进行描述性分析。</p>
+
+                <div class="figure">
+                    <div class="figure-header">
+                        <div class="figure-num">图 3</div>
+                        <div class="figure-title">各新闻评分均值分布</div>
+                        <div class="figure-caption">评分均值越低，表示受访者越倾向判断为AI生成</div>
+                    </div>
+                    <div class="chart-container" id="newsScoreChart"></div>
+                    <p class="figure-note">新闻1、4、6为ChatGPT生成（深色）；新闻2、3、5为文心一言生成（红色）；新闻7、8、9为人工撰写（黑色）。虚线为中值5.5分。</p>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-label">核心发现</div>
+                    <p>对于全部9篇新闻，评分均值均处于5.54-6.48区间，略高于中值5.5。这表明受访者整体倾向于认为这些新闻为人工生成，呈现轻微的"人类偏向"（Human Bias）。ChatGPT生成的"美国枪击事件"新闻（新闻4）评分最高（6.43），最容易被误判为人工撰写；文心一言生成的"失踪女童"新闻（新闻3）评分最低（5.54），相对容易被识别为AI生成。</p>
+                </div>
+
+                <h3>3.1 区分算法新闻的考量因素</h3>
+                <p>受访者在判断新闻是否为算法生成时，主要考量以下因素：</p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>考量因素</th>
+                            <th style="text-align: right;">选择人数</th>
+                            <th style="text-align: right;">占比</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>新闻的风格和语言质量</td>
+                            <td class="num">694</td>
+                            <td class="num sig">87.3%</td>
+                        </tr>
+                        <tr>
+                            <td>新闻的主题和深度</td>
+                            <td class="num">615</td>
+                            <td class="num sig">77.4%</td>
+                        </tr>
+                        <tr>
+                            <td>新闻内容的可信度</td>
+                            <td class="num">341</td>
+                            <td class="num">42.9%</td>
+                        </tr>
+                        <tr>
+                            <td>其他因素</td>
+                            <td class="num">36</td>
+                            <td class="num">4.5%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><span class="hl-num">87.3%</span>的受访者将"风格和语言质量"作为区分算法新闻的关键依据，远高于其他因素。这表明受众对新闻的表达方式、文字规范性、语言流畅度等方面有较高敏感度。当AI生成的新闻在语言风格上呈现"机器感"时，受众能够识别。</p>
+
+                <p>"主题和深度"（77.4%）是第二重要考量因素。受众会关注新闻是否涉及复杂议题、是否提供深入见解、是否呈现多元视角。AI生成内容在这方面的局限性可能成为识别线索。</p>
+            </section>
+
+            <!-- 预调查分析 -->
+            <section>
+                <h2>四、预调查分析</h2>
+
+                <p>在正式调查前，研究团队进行了预调查，收集有效问卷130份。预调查采用不同的测量方式：每篇新闻设有明确的"正确答案"（算法生成/人工撰写），可计算受众识别AI新闻的客观正确率。</p>
+
+                <div class="figure">
+                    <div class="figure-header">
+                        <div class="figure-num">图 4</div>
+                        <div class="figure-title">预调查：新闻来源识别正确率</div>
+                        <div class="figure-caption">正确率越高，表示受众越能准确判断新闻来源</div>
+                    </div>
+                    <div class="chart-container" id="accuracyChart"></div>
+                    <p class="figure-note">绿色为算法生成新闻（正确识别为算法）；蓝色为人工撰写新闻（正确识别为人工）。正确率=正确判断人数/总人数。</p>
+                </div>
+
+                <div class="finding">
+                    <div class="finding-label">重要发现</div>
+                    <p>算法生成的新闻内容存在明显的"机器感"差异。受访者能清晰分辨部分算法内容（如"基本养老金"报道正确率达<strong>76%</strong>），但对另一些内容则难以区分（如"失踪女童"报道正确率仅<strong>27%</strong>）。这一结果证明不同AI模型、不同题材的新闻在"拟人化"程度上存在显著差异，也为AI新闻生成技术的优化提供了方向。</p>
+                </div>
+
+                <h3>4.1 专业背景与识别能力的卡方检验</h3>
+                <p>预调查通过卡方检验分析了专业背景、教育程度与识别正确率的关系：</p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>检验变量</th>
+                            <th style="text-align: right;">卡方值(χ²)</th>
+                            <th style="text-align: right;">自由度</th>
+                            <th style="text-align: right;">显著性</th>
+                            <th>结论</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>专业背景 × 总分</td>
+                            <td class="num">227.098</td>
+                            <td class="num">230</td>
+                            <td class="num">0.542</td>
+                            <td>不显著</td>
+                        </tr>
+                        <tr>
+                            <td>教育程度 × 总分</td>
+                            <td class="num">21.436</td>
+                            <td class="num">20</td>
+                            <td class="num">0.372</td>
+                            <td>不显著</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>卡方检验结果显示，专业背景（p=0.542）和教育程度（p=0.372）与识别正确率均无显著关联。然而，这一结果可能受限于预调查样本量较小（n=130），统计检验力不足。正式调查将对此进行更深入的分析。</p>
+            </section>
+
+            <!-- 回归分析 -->
+            <section>
+                <h2>五、回归分析</h2>
+
+                <p>为深入探索影响受众识别AI新闻的关键因素，本研究构建了多元线性回归模型。因变量为受众对AI生成新闻的评分（包括ChatGPT新闻评分、文心一言新闻评分、综合评分），自变量包括年龄、教育程度、专业背景、职业、媒体使用习惯、AI认知水平等。回归系数为正表示更倾向判断为人工撰写，为负表示更倾向判断为算法生成。</p>
+
+                <h3>5.1 年龄的影响</h3>
+
+                <div class="figure">
+                    <div class="figure-header">
+                        <div class="figure-num">图 5</div>
+                        <div class="figure-title">年龄对ChatGPT新闻评分的影响（回归系数）</div>
+                        <div class="figure-caption">参照组：51岁及以上；*表示p&lt;0.05</div>
+                    </div>
+                    <div class="chart-container" id="ageRegChart" style="height: 180px;"></div>
+                </div>
+
+                <p>回归分析显示，相较"51岁及以上"群体，<span class="hl">"20岁及以下"</span>（B=1.973, p=0.029）、<span class="hl">"31-40岁"</span>（B=1.966, p=0.019）、<span class="hl">"41-50岁"</span>（B=2.168, p=0.025）群体均更倾向于给予较高评分——即更倾向认为ChatGPT生成的新闻为人工撰写。</p>
+
+                <div class="finding">
+                    <div class="finding-label">反直觉发现</div>
+                    <p>出人意料的是，"21-30岁"群体表现出最强的识别能力。相较"31-40岁"群体，"21-30岁"群体对算法新闻的综合评分显著更低（B=-1.523, p=0.022），即更倾向正确识别出AI生成内容。这一群体可能是AI技术的核心用户，对AI生成特征更为敏感。这一发现挑战了"年轻人更容易被AI欺骗"的普遍假设。</p>
+                </div>
+
+                <h3>5.2 教育程度的影响</h3>
+                <p>教育程度对识别能力的影响呈现明显梯度。下表展示各教育程度群体相较参照组（大学专科）的回归系数：</p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>教育程度</th>
+                            <th style="text-align: right;">回归系数(B)</th>
+                            <th style="text-align: right;">标准误(SE)</th>
+                            <th style="text-align: right;">显著性</th>
+                            <th>解读</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>初中</td>
+                            <td class="num">6.678</td>
+                            <td class="num">3.356</td>
+                            <td class="num sig">0.048</td>
+                            <td>更倾向判断为人工</td>
+                        </tr>
+                        <tr>
+                            <td>中专/技校</td>
+                            <td class="num">5.412</td>
+                            <td class="num">2.654</td>
+                            <td class="num sig">0.043</td>
+                            <td>更倾向判断为人工</td>
+                        </tr>
+                        <tr>
+                            <td>普通高中</td>
+                            <td class="num">4.440</td>
+                            <td class="num">1.924</td>
+                            <td class="num sig">0.022</td>
+                            <td>更倾向判断为人工</td>
+                        </tr>
+                        <tr>
+                            <td>大学本科</td>
+                            <td class="num">0.304</td>
+                            <td class="num">0.921</td>
+                            <td class="num">0.742</td>
+                            <td>无显著差异</td>
+                        </tr>
+                        <tr>
+                            <td>研究生</td>
+                            <td class="num">1.123</td>
+                            <td class="num">1.180</td>
+                            <td class="num">0.340</td>
+                            <td>无显著差异</td>
+                        </tr>
+                        <tr>
+                            <td>博士</td>
+                            <td class="num">-0.863</td>
+                            <td class="num">2.745</td>
+                            <td class="num">0.753</td>
+                            <td>无显著差异</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>数据显示，<span class="hl">中等教育群体（中专/技校、初中、高中）更倾向于将AI新闻误判为人工撰写</span>，回归系数在4.44-6.68之间（p&lt;0.05）。而高等教育群体（本科、研究生、博士）与参照组无显著差异，判断更为准确。这表明教育程度对AI内容识别能力有显著正向影响。</p>
+
+                <h3>5.3 专业背景的影响</h3>
+
+                <div class="figure">
+                    <div class="figure-header">
+                        <div class="figure-num">图 6</div>
+                        <div class="figure-title">专业背景对算法新闻评分的影响</div>
+                        <div class="figure-caption">参照组：未上大学；负值表示更倾向识别为AI生成</div>
+                    </div>
+                    <div class="chart-container" id="majorRegChart"></div>
+                </div>
+
+                <p>相较"未上大学"群体，多个专业背景群体表现出更强的AI新闻识别能力（回归系数为负）：</p>
+
+                <ul>
+                    <li><strong>教育学专业</strong>：识别能力最强（B=-7.620, p&lt;0.001），可能与专业训练中对文本分析、语言风格的要求有关</li>
+                    <li><strong>工学专业</strong>：B=-5.209, p&lt;0.001，对技术特征敏感度较高</li>
+                    <li><strong>法学专业</strong>：B=-5.420, p=0.007，逻辑分析能力可能发挥作用</li>
+                    <li><strong>新闻传播学专业</strong>：B=-4.766, p=0.003，专业背景带来识别优势</li>
+                    <li><strong>语言文学专业</strong>：B=-4.651, p&lt;0.001，对语言风格敏感度高</li>
+                </ul>
+
+                <div class="finding">
+                    <div class="finding-label">专业差异的深层解读</div>
+                    <p>教育学、工学、法学、新闻传播学、语言文学等专业群体识别能力较强，可能与以下因素相关：（1）专业训练中对文本逻辑、语言风格的敏感度培养；（2）对技术原理的理解（工学）；（3）批判性思维的训练（法学、新闻学）；（4）语言美学素养（文学）。值得注意的是，管理学、经济学专业群体识别能力相对较弱，原因有待进一步研究。</p>
+                </div>
+
+                <h3>5.4 媒体使用习惯的影响</h3>
+                <p>媒体使用习惯对AI新闻识别能力有显著影响，这一发现具有重要的政策启示意义。</p>
+
+                <div class="two-col">
+                    <div class="figure" style="border: none; padding: 0; margin: 0;">
+                        <div class="figure-header">
+                            <div class="figure-num">图 7-a</div>
+                            <div class="figure-title">互联网使用频率的影响</div>
+                            <div class="figure-caption">参照组：从不使用</div>
+                        </div>
+                        <div class="chart-container" id="internetChart" style="height: 180px;"></div>
+                    </div>
+                    <div class="figure" style="border: none; padding: 0; margin: 0;">
+                        <div class="figure-header">
+                            <div class="figure-num">图 7-b</div>
+                            <div class="figure-title">纸质媒体使用频率的影响</div>
+                            <div class="figure-caption">参照组：非常频繁使用</div>
+                        </div>
+                        <div class="chart-container" id="paperChart" style="height: 180px;"></div>
+                    </div>
+                </div>
+
+                <p><span class="hl">互联网使用频率与识别能力呈显著正相关</span>。相较"从不使用互联网"的群体，所有其他频次类别（很少、有时、经常、非常频繁）的群体均更倾向于正确识别AI生成新闻（回归系数均为负值，p&lt;0.05）。高频互联网使用者可能更多接触AI生成内容，对其特征更为熟悉。</p>
+
+                <p>相反，<span class="hl">纸质媒体使用频率与识别能力呈负相关</span>。相较"非常频繁使用纸质媒体"的群体，"有时"和"经常"使用的群体更倾向于将AI新闻误判为人工撰写（回归系数为正，p&lt;0.05）。这可能是因为纸质媒体使用者接触数字化内容的频率较低，对AI生成特征不够敏感。</p>
+
+                <blockquote>
+                    <p>这一发现揭示了"数字鸿沟"对AI素养的影响：传统媒体使用者可能面临更高的"AI欺骗风险"。在AI内容泛滥的时代，如何保护这一群体的知情权，值得政策制定者关注。</p>
+                </blockquote>
+            </section>
+
+            <!-- 方差分析 -->
+            <section>
+                <h2>六、方差分析（ANOVA）</h2>
+
+                <p>为进一步验证各因素对AI新闻识别正确率的影响，研究进行了单因素方差分析。因变量为受众识别AI新闻的正确率，自变量包括人口学特征、媒体使用习惯、AI认知水平等。</p>
+
+                <h3>6.1 ChatGPT新闻识别正确率的影响因素</h3>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>影响因素</th>
+                            <th style="text-align: right;">F值</th>
+                            <th style="text-align: right;">自由度</th>
+                            <th style="text-align: right;">显著性</th>
+                            <th>效应解读</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>算法素养</td>
+                            <td class="num">2.375</td>
+                            <td class="num">86, 708</td>
+                            <td class="num sig">&lt;0.001</td>
+                            <td>高度显著</td>
+                        </tr>
+                        <tr>
+                            <td>AI满意度</td>
+                            <td class="num">2.510</td>
+                            <td class="num">25, 769</td>
+                            <td class="num sig">&lt;0.001</td>
+                            <td>高度显著</td>
+                        </tr>
+                        <tr>
+                            <td>电视使用情况</td>
+                            <td class="num">1.827</td>
+                            <td class="num">24, 770</td>
+                            <td class="num sig">0.006</td>
+                            <td>显著</td>
+                        </tr>
+                        <tr>
+                            <td>报纸杂志使用情况</td>
+                            <td class="num">1.748</td>
+                            <td class="num">22, 772</td>
+                            <td class="num sig">0.010</td>
+                            <td>显著</td>
+                        </tr>
+                        <tr>
+                            <td>境外媒体接触</td>
+                            <td class="num">1.760</td>
+                            <td class="num">24, 770</td>
+                            <td class="num sig">0.009</td>
+                            <td>显著</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>6.2 算法素养的测量</h3>
+                <p>算法素养是本研究的关键变量之一，通过五个维度进行测量。研究采用熵权法进行客观赋权，避免主观赋权的偏差：</p>
+
+                <div class="figure">
+                    <div class="figure-header">
+                        <div class="figure-num">图 8</div>
+                        <div class="figure-title">算法素养维度权重分布（熵权法）</div>
+                        <div class="figure-caption">各维度在算法素养构成中的相对重要性</div>
+                    </div>
+                    <div class="chart-container" id="literacyChart" style="height: 180px;"></div>
+                </div>
+
+                <p>算法素养的五个维度中，"理解算法概念与术语"权重最高（23.4%），其次是"对算法逻辑进行思考"（21.2%）。这表明<span class="hl">理论知识与批判性思维是算法素养的核心组成部分</span>。"调整推送内容"权重最低（17.8%），说明操作层面的能力相对次要。</p>
+
+                <div class="finding">
+                    <div class="finding-label">关键发现</div>
+                    <p>算法素养对AI新闻识别正确率有高度显著影响（F=2.375, p&lt;0.001）。这意味着提升公众的算法素养——包括理解算法原理、培养批判性思维、保护个人信息——是增强其AI内容识别能力的有效途径。政策制定者应考虑将算法素养纳入媒介素养教育体系。</p>
+                </div>
+
+                <h3>6.3 综合识别正确率的影响因素</h3>
+                <p>对于综合识别正确率（同时识别ChatGPT和文心一言新闻），除上述共性因素外，以下变量也具有显著影响：</p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>影响因素</th>
+                            <th style="text-align: right;">F值</th>
+                            <th style="text-align: right;">显著性</th>
+                            <th>主要发现</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>职业</td>
+                            <td class="num">1.382</td>
+                            <td class="num sig">0.049</td>
+                            <td>在校学生、自由职业者识别能力较强</td>
+                        </tr>
+                        <tr>
+                            <td>教育程度</td>
+                            <td class="num">1.496</td>
+                            <td class="num sig">0.019</td>
+                            <td>高等教育群体优于中等教育群体</td>
+                        </tr>
+                        <tr>
+                            <td>互联网使用情况</td>
+                            <td class="num">2.493</td>
+                            <td class="num sig">&lt;0.001</td>
+                            <td>高频使用者识别能力更强</td>
+                        </tr>
+                        <tr>
+                            <td>对互联网的偏好</td>
+                            <td class="num">1.755</td>
+                            <td class="num sig">0.028</td>
+                            <td>偏好互联网者识别能力更强</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 结论 -->
+            <section class="conclusion">
+                <h2>七、结论与建议</h2>
+
+                <p>本研究通过对795份有效问卷的分析，系统考察了受众对AI生成新闻的识别能力及其影响因素。研究发现，AI新闻识别能力并非均匀分布，而是受到多种因素的复杂影响。以下总结核心结论并提出政策建议。</p>
+
+                <h3>7.1 核心结论</h3>
+
+                <div class="recommendation">
+                    <div class="recommendation-header">
+                        <span class="recommendation-num">1</span>
+                        <span class="recommendation-title">教育程度与识别能力正相关</span>
+                    </div>
+                    <p>高等教育群体（本科、研究生）在识别AI新闻方面表现更优，中专/技校与初中群体误判率较高，回归系数达4.44-6.68。教育不仅提供知识，更培养批判性思维，这对识别AI内容至关重要。中等教育群体应是AI素养教育的重点对象。</p>
+                </div>
+
+                <div class="recommendation">
+                    <div class="recommendation-header">
+                        <span class="recommendation-num">2</span>
+                        <span class="recommendation-title">媒体使用习惯影响显著</span>
+                    </div>
+                    <p>互联网高频使用者更善于识别AI生成新闻，而纸质媒体使用者识别能力相对较弱。这揭示了数字鸿沟对AI素养的影响：传统媒体使用者可能面临更高的"AI欺骗风险"。在AI内容日益普及的背景下，如何保护这一群体的知情权，值得政策关注。</p>
+                </div>
+
+                <div class="recommendation">
+                    <div class="recommendation-header">
+                        <span class="recommendation-num">3</span>
+                        <span class="recommendation-title">算法素养是关键因素</span>
+                    </div>
+                    <p>算法素养对识别正确率有高度显著影响（F=2.375, p&lt;0.001）。提升公众的算法素养——包括理解算法原理、识别算法影响、保护个人信息——是应对AI内容泛滥的核心策略。其中，理论理解（23.4%）和批判思维（21.2%）是算法素养的核心维度。</p>
+                </div>
+
+                <div class="recommendation">
+                    <div class="recommendation-header">
+                        <span class="recommendation-num">4</span>
+                        <span class="recommendation-title">"21-30岁"群体识别能力最强</span>
+                    </div>
+                    <p>这一反直觉发现表明，AI技术的核心用户群体可能对AI生成特征更为敏感。他们既是AI的高频使用者，也是最佳的"AI内容检测者"。这一发现挑战了"年轻人更容易被AI欺骗"的普遍假设，对于AI素养教育的人群定位具有启示意义。</p>
+                </div>
+
+                <h3>7.2 政策建议</h3>
+
+                <p>基于上述发现，本研究提出以下建议：</p>
+
+                <p><strong>第一，加强算法素养教育。</strong>建议在中小学信息技术课程中增加算法原理、AI特征识别等内容。针对中等教育程度群体开展专项培训，可考虑通过社区教育、职业培训等渠道进行。教育部门应考虑将算法素养纳入媒介素养教育体系，编写相关教材，培训师资力量。</p>
+
+                <p><strong>第二，建立AI内容标识机制。</strong>新闻平台应建立AI生成内容的标识制度，帮助受众辨别内容来源。对于新闻类AI应用，可考虑强制要求标注"AI辅助生成"或"AI原创"。标识机制应有统一标准，避免平台各自为政。</p>
+
+                <p><strong>第三，关注数字弱势群体。</strong>研究发现纸质媒体使用者和中等教育群体识别能力较弱，建议通过社区教育、老年大学、农村文化活动中心等渠道，开展针对性的AI素养培训。这部分群体可能是AI虚假信息的"易感人群"，应予以特别关注。</p>
+
+                <p><strong>第四，优化AI新闻生成策略。</strong>研究发现不同AI模型、不同题材的新闻在"拟人化"程度上存在差异。建议AI开发者在新闻生成过程中加强语言风格优化，提高内容透明度，主动标识AI生成痕迹，而非追求"以假乱真"。</p>
+
+                <blockquote>
+                    <p>本研究为理解公众对AI技术应用认知提供了实证依据，为AI新闻内容优化、受众教育及监管政策制定提供了科学参考。随着AI技术的持续发展，相关研究需要持续跟踪，以应对不断变化的挑战。未来研究可进一步探讨AI生成内容对新闻公信力的长期影响，以及不同文化背景下受众识别能力的差异。</p>
+                </blockquote>
+            </section>
+        </article>
+
+        <footer>
+            <div class="footer-info">
+                <span>汕头大学 · 网络与新媒体专业</span>
+                <span>大学生创新创业训练计划</span>
+                <span>2024</span>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // 图表基础配置
+        const baseConfig = {
+            backgroundColor: 'transparent',
+            textStyle: { fontFamily: 'Noto Serif SC, Georgia, serif', color: '#666666' },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true }
+        };
+
+        // 性别年龄图
+        const genderAgeChart = echarts.init(document.getElementById('genderAgeChart'));
+        genderAgeChart.setOption({
+            ...baseConfig,
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { data: ['男性', '女性'], bottom: 0, textStyle: { color: '#666', fontSize: 11 } },
+            xAxis: { 
+                type: 'category', 
+                data: ['≤20岁', '21-30岁', '31-40岁', '41-50岁', '51岁+'], 
+                axisLine: { lineStyle: { color: '#e0e0e0' } }, 
+                axisLabel: { color: '#666', fontSize: 11 } 
+            },
+            yAxis: { 
+                type: 'value', 
+                axisLine: { show: false }, 
+                splitLine: { lineStyle: { color: '#f0f0f0' } }, 
+                axisLabel: { color: '#999', fontSize: 11 } 
+            },
+            series: [
+                { name: '男性', type: 'bar', stack: 'total', data: [33, 92, 71, 30, 18], itemStyle: { color: '#333333' }, barWidth: 30 },
+                { name: '女性', type: 'bar', stack: 'total', data: [79, 204, 215, 39, 14], itemStyle: { color: '#c9463d' } }
+            ]
+        });
+
+        // 教育程度图
+        const eduChart = echarts.init(document.getElementById('eduChart'));
+        eduChart.setOption({
+            ...baseConfig,
+            tooltip: { trigger: 'item', formatter: '{b}: {c}人 ({d}%)' },
+            series: [{
+                type: 'pie',
+                radius: ['35%', '65%'],
+                center: ['50%', '50%'],
+                label: { formatter: '{b}\n{d}%', fontSize: 10, color: '#666' },
+                data: [
+                    { value: 558, name: '本科', itemStyle: { color: '#333333' } },
+                    { value: 99, name: '研究生', itemStyle: { color: '#666666' } },
+                    { value: 86, name: '专科', itemStyle: { color: '#999999' } },
+                    { value: 8, name: '博士', itemStyle: { color: '#c9463d' } },
+                    { value: 44, name: '其他', itemStyle: { color: '#cccccc' } }
+                ]
+            }]
+        });
+
+        // AI使用图
+        const aiUseChart = echarts.init(document.getElementById('aiUseChart'));
+        aiUseChart.setOption({
+            ...baseConfig,
+            tooltip: { trigger: 'axis', axisPointer: { type: 'none' } },
+            xAxis: { 
+                type: 'value', 
+                axisLine: { show: false }, 
+                splitLine: { lineStyle: { color: '#f0f0f0' } }, 
+                axisLabel: { formatter: '{value}%', color: '#999', fontSize: 11 } 
+            },
+            yAxis: { 
+                type: 'category', 
+                data: ['其他用途', '学习辅助', '工作辅助'], 
+                axisLine: { lineStyle: { color: '#e0e0e0' } }, 
+                axisLabel: { color: '#666', fontSize: 12 } 
+            },
+            series: [{
+                type: 'bar',
+                data: [
+                    { value: 2.4, itemStyle: { color: '#cccccc' } },
+                    { value: 56.2, itemStyle: { color: '#999999' } },
+                    { value: 89.7, itemStyle: { color: '#c9463d' } }
+                ],
+                barWidth: 18,
+                label: { show: true, position: 'right', formatter: '{c}%', color: '#666', fontSize: 11 }
+            }]
+        });
+
+        // 新闻评分图
+        const newsScoreChart = echarts.init(document.getElementById('newsScoreChart'));
+        newsScoreChart.setOption({
+            ...baseConfig,
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            xAxis: { 
+                type: 'category', 
+                data: ['新闻1', '新闻2', '新闻3', '新闻4', '新闻5', '新闻6', '新闻7', '新闻8', '新闻9'], 
+                axisLine: { lineStyle: { color: '#e0e0e0' } }, 
+                axisLabel: { color: '#666', fontSize: 11 } 
+            },
+            yAxis: { 
+                type: 'value', 
+                min: 5, 
+                max: 7, 
+                axisLine: { show: false }, 
+                splitLine: { lineStyle: { color: '#f0f0f0' } }, 
+                axisLabel: { color: '#999', fontSize: 11 } 
+            },
+            series: [{
+                type: 'bar',
+                data: [
+                    { value: 6.21, itemStyle: { color: '#666666' } },
+                    { value: 5.54, itemStyle: { color: '#c9463d' } },
+                    { value: 5.78, itemStyle: { color: '#c9463d' } },
+                    { value: 6.43, itemStyle: { color: '#666666' } },
+                    { value: 6.38, itemStyle: { color: '#c9463d' } },
+                    { value: 6.48, itemStyle: { color: '#666666' } },
+                    { value: 6.44, itemStyle: { color: '#333333' } },
+                    { value: 6.07, itemStyle: { color: '#333333' } },
+                    { value: 6.38, itemStyle: { color: '#333333' } }
+                ],
+                barWidth: 28,
+                label: { show: true, position: 'top', formatter: '{c}', color: '#666', fontSize: 10 }
+            }],
+            markLine: {
+                silent: true,
+                lineStyle: { color: '#c9463d', type: 'dashed', width: 1 },
+                label: { formatter: '中值', position: 'insideEndTop', color: '#c9463d', fontSize: 10 },
+                data: [{ yAxis: 5.5 }]
+            }
+        });
+
+        // 正确率图
+        const accuracyChart = echarts.init(document.getElementById('accuracyChart'));
+        accuracyChart.setOption({
+            ...baseConfig,
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            xAxis: { 
+                type: 'category', 
+                data: ['新闻记者', '养老金', '失踪女童', '枪击案', '空气污染', '航天移交', '平果爆炸', '课间活动'], 
+                axisLine: { lineStyle: { color: '#e0e0e0' } }, 
+                axisLabel: { color: '#666', fontSize: 10 } 
+            },
+            yAxis: { 
+                type: 'value', 
+                max: 100, 
+                axisLine: { show: false }, 
+                splitLine: { lineStyle: { color: '#f0f0f0' } }, 
+                axisLabel: { formatter: '{value}%', color: '#999', fontSize: 11 } 
+            },
+            series: [{
+                type: 'bar',
+                data: [
+                    { value: 58, itemStyle: { color: '#333333' } },
+                    { value: 76, itemStyle: { color: '#c9463d' } },
+                    { value: 27, itemStyle: { color: '#c9463d' } },
+                    { value: 62, itemStyle: { color: '#c9463d' } },
+                    { value: 53, itemStyle: { color: '#c9463d' } },
+                    { value: 52, itemStyle: { color: '#c9463d' } },
+                    { value: 72, itemStyle: { color: '#333333' } },
+                    { value: 45, itemStyle: { color: '#333333' } }
+                ],
+                barWidth: 24,
+                label: { show: true, position: 'top', formatter: '{c}%', color: '#666', fontSize: 10 }
+            }]
+        });
+
+        // 年龄回归图
+        const ageRegChart = echarts.init(document.getElementById('ageRegChart'));
+        ageRegChart.setOption({
+            ...baseConfig,
+            tooltip: { trigger: 'axis' },
+            xAxis: { 
+                type: 'category', 
+                data: ['≤20岁*', '21-30岁', '31-40岁*', '41-50岁*'], 
+                axisLine: { lineStyle: { color: '#e0e0e0' } }, 
+                axisLabel: { color: '#666', fontSize: 11 } 
+            },
+            yAxis: { 
+                type: 'value', 
+                axisLine: { show: false }, 
+                splitLine: { lineStyle: { color: '#f0f0f0' } }, 
+                axisLabel: { color: '#999', fontSize: 11 } 
+            },
+            series: [{
+                type: 'bar',
+                data: [
+                    { value: 1.973, itemStyle: { color: '#c9463d' } },
+                    { value: 1.171, itemStyle: { color: '#999999' } },
+                    { value: 1.966, itemStyle: { color: '#c9463d' } },
+                    { value: 2.168, itemStyle: { color: '#c9463d' } }
+                ],
+                barWidth: 35,
+                label: { show: true, position: 'top', formatter: 'B={c}', color: '#666', fontSize: 10 }
+            }]
+        });
+
+        // 专业回归图
+        const majorRegChart = echarts.init(document.getElementById('majorRegChart'));
+        majorRegChart.setOption({
+            ...baseConfig,
+            tooltip: { trigger: 'axis' },
+            grid: { left: '3%', right: '8%', bottom: '3%', containLabel: true },
+            xAxis: { 
+                type: 'value', 
+                axisLine: { show: false }, 
+                splitLine: { lineStyle: { color: '#f0f0f0' } }, 
+                axisLabel: { color: '#999', fontSize: 11 } 
+            },
+            yAxis: { 
+                type: 'category', 
+                data: ['经济学', '理学', '管理学', '法学', '新闻学', '文学', '工学', '教育学'], 
+                axisLine: { lineStyle: { color: '#e0e0e0' } }, 
+                axisLabel: { color: '#666', fontSize: 11 } 
+            },
+            series: [{
+                type: 'bar',
+                data: [-3.90, -4.46, -3.28, -5.42, -4.77, -4.65, -5.21, -7.62].map(v => ({
+                    value: v,
+                    itemStyle: { color: v < -5 ? '#c9463d' : '#666666' }
+                })),
+                barWidth: 12,
+                label: { show: true, position: 'left', formatter: '{c}', color: '#666', fontSize: 9 }
+            }]
+        });
+
+        // 互联网使用图
+        const internetChart = echarts.init(document.getElementById('internetChart'));
+        internetChart.setOption({
+            ...baseConfig,
+            tooltip: { trigger: 'axis' },
+            grid: { left: '3%', right: '8%', bottom: '3%', containLabel: true },
+            xAxis: { 
+                type: 'value', 
+                axisLine: { show: false }, 
+                splitLine: { lineStyle: { color: '#f0f0f0' } }, 
+                axisLabel: { color: '#999', fontSize: 10 } 
+            },
+            yAxis: { 
+                type: 'category', 
+                data: ['很少', '有时', '经常', '高频'], 
+                axisLine: { lineStyle: { color: '#e0e0e0' } }, 
+                axisLabel: { color: '#666', fontSize: 10 } 
+            },
+            series: [{
+                type: 'bar',
+                data: [-26.25, -22.78, -23.51, -23.42].map(v => ({
+                    value: v,
+                    itemStyle: { color: '#c9463d' }
+                })),
+                barWidth: 12,
+                label: { show: true, position: 'left', formatter: '{c}', color: '#666', fontSize: 9 }
+            }]
+        });
+
+        // 纸质媒体图
+        const paperChart = echarts.init(document.getElementById('paperChart'));
+        paperChart.setOption({
+            ...baseConfig,
+            tooltip: { trigger: 'axis' },
+            grid: { left: '3%', right: '8%', bottom: '3%', containLabel: true },
+            xAxis: { 
+                type: 'value', 
+                axisLine: { show: false }, 
+                splitLine: { lineStyle: { color: '#f0f0f0' } }, 
+                axisLabel: { color: '#999', fontSize: 10 } 
+            },
+            yAxis: { 
+                type: 'category', 
+                data: ['从不', '很少', '有时', '经常'], 
+                axisLine: { lineStyle: { color: '#e0e0e0' } }, 
+                axisLabel: { color: '#666', fontSize: 10 } 
+            },
+            series: [{
+                type: 'bar',
+                data: [1.31, 1.61, 2.07, 2.30].map(v => ({
+                    value: v,
+                    itemStyle: { color: '#333333' }
+                })),
+                barWidth: 12,
+                label: { show: true, position: 'right', formatter: '{c}', color: '#666', fontSize: 9 }
+            }]
+        });
+
+        // 算法素养权重图
+        const literacyChart = echarts.init(document.getElementById('literacyChart'));
+        literacyChart.setOption({
+            ...baseConfig,
+            tooltip: { trigger: 'axis' },
+            grid: { left: '3%', right: '8%', bottom: '3%', containLabel: true },
+            xAxis: { 
+                type: 'value', 
+                max: 25, 
+                axisLine: { show: false }, 
+                splitLine: { lineStyle: { color: '#f0f0f0' } }, 
+                axisLabel: { formatter: '{value}%', color: '#999', fontSize: 10 } 
+            },
+            yAxis: { 
+                type: 'category', 
+                data: ['调整推送', '隐私保护', '获取信息', '逻辑思考', '概念理解'], 
+                axisLine: { lineStyle: { color: '#e0e0e0' } }, 
+                axisLabel: { color: '#666', fontSize: 10 } 
+            },
+            series: [{
+                type: 'bar',
+                data: [17.82, 18.97, 18.58, 21.19, 23.44].map(v => ({
+                    value: v,
+                    itemStyle: { color: '#333333' }
+                })),
+                barWidth: 12,
+                label: { show: true, position: 'right', formatter: '{c}%', color: '#666', fontSize: 9 }
+            }]
+        });
+
+        // 响应式
+        window.addEventListener('resize', () => {
+            const charts = [genderAgeChart, eduChart, aiUseChart, newsScoreChart, accuracyChart, ageRegChart, majorRegChart, internetChart, paperChart, literacyChart];
+            charts.forEach(c => c && c.resize());
+        });
+    </script>
+</body>
+</html>

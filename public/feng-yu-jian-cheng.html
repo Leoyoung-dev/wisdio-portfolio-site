@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风雨兼程 | 刘扬</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #1a1a1a;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --light-gray: #999999;
+            --border-gray: #e0e0e0;
+            --bg-light: #fafafa;
+            --accent: #c9463d;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', 'Source Serif 4', Georgia, 'Times New Roman', serif;
+            background-color: #fafafa;
+            color: var(--black);
+            line-height: 1.9;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .paper {
+            max-width: 720px;
+            margin: 0 auto;
+            background: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .site-nav .logo {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--black);
+            letter-spacing: 2px;
+        }
+
+        .site-nav .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .site-nav .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--medium-gray);
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        .site-nav .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Header */
+        header {
+            padding: 100px 50px 50px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .article-category {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .article-subtitle {
+            font-size: 17px;
+            color: var(--medium-gray);
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 30px;
+            font-size: 13px;
+            color: var(--light-gray);
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Article Content */
+        article {
+            padding: 50px;
+        }
+
+        .drop-cap::first-letter {
+            float: left;
+            font-size: 58px;
+            line-height: 0.85;
+            margin: 8px 12px 0 0;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        /* Section Headers */
+        h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--medium-gray);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--black);
+            display: inline-block;
+        }
+
+        /* Article Image */
+        .article-image {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border-gray);
+        }
+
+        .article-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .article-image .caption {
+            font-size: 12px;
+            color: var(--light-gray);
+            text-align: center;
+            margin-top: 0.75rem;
+            font-style: italic;
+        }
+
+        /* Pull Quote */
+        blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 20px 30px;
+            margin: 2.5rem 0;
+            background: var(--bg-light);
+            font-style: italic;
+        }
+
+        blockquote p {
+            font-size: 17px;
+            color: var(--dark-gray);
+            line-height: 1.9;
+            margin: 0;
+        }
+
+        blockquote cite {
+            display: block;
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--light-gray);
+            font-style: normal;
+        }
+
+        /* Data Visualization */
+        .data-viz {
+            margin: 2.5rem 0;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border-gray);
+        }
+
+        .data-viz-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        #garbage-chart {
+            width: 100%;
+            height: 280px;
+        }
+
+        .data-viz-note {
+            font-size: 11px;
+            color: var(--light-gray);
+            text-align: center;
+            margin-top: 0.75rem;
+        }
+
+        /* Scene Break */
+        .scene-break {
+            text-align: center;
+            margin: 2.5rem 0;
+            color: var(--light-gray);
+            font-size: 18px;
+            letter-spacing: 8px;
+        }
+
+        /* Footer */
+        .article-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .author-note {
+            font-size: 14px;
+            color: var(--medium-gray);
+            line-height: 1.8;
+        }
+
+        .author-note strong {
+            color: var(--black);
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--light-gray);
+            margin-bottom: 2rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .site-nav {
+                padding: 1rem 1.5rem;
+            }
+
+            header {
+                padding: 80px 25px 40px;
+            }
+
+            article {
+                padding: 40px 25px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            blockquote {
+                padding: 15px 20px;
+                margin: 2rem -25px;
+            }
+
+            .article-image {
+                margin: 2rem -25px;
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="/" class="logo">LIU YANG</a>
+        <ul class="nav-links">
+            <li><a href="/showcase/articles">作品集</a></li>
+            <li><a href="/resume">简历</a></li>
+        </ul>
+    </nav>
+
+    <main class="paper">
+        <header>
+            <span class="article-category">人物特写</span>
+            <h1>风雨兼程</h1>
+            <p class="article-subtitle">这是一份无论晴天雨天，需要风雨兼程的职业。</p>
+            <div class="article-meta">
+                <span>2023年</span>
+            </div>
+        </header>
+
+        <article>
+            <a href="/showcase/articles" class="back-link">← 返回作品集</a>
+
+            <p class="drop-cap">雨势渐小，垃圾运载车的引擎轰鸣声顿时响起，垃圾被碾碎的声音噼啪作响。</p>
+
+            <p>寒风伴着雨点，路过的学生们都打着伞，手缩进袖子，头埋在羽绒服帽子里头，哆哆嗦嗦地走回宿舍。</p>
+
+            <p>这正是阿辉要抓住的时机，与其在车上干等雨停，不如趁雨点零星把活给做完了。</p>
+
+            <p>一袋袋被雨浸湿的垃圾袋堆在学校路边，正静静地等待着他。垃圾袋被雨水打湿后更添了几斤重量，黄色的汁液沿着袋口往外漏，滑腻腻的，一只手抓不住，得用另一只手托着才能举起。</p>
+
+            <p>几十斤重的袋子，他左手右手各拿一个，一袋袋垃圾从地上不断的被抛到空中，落到料斗里……</p>
+
+            <p>宿舍区、饭堂、实验楼、教师公寓……从第一个垃圾站到最后一个垃圾站，要花去一个小时左右的时间。</p>
+
+            <p>"没事！我来！"</p>
+
+            <p>见我扛不起这袋垃圾，他单手就将其拎起来，轻松地丢进料斗里。</p>
+
+            <p>雨声渐隆，行人慌忙躲避。我正要去拉最后一个垃圾桶，他直说："没事！剩下一桶明天再拉。"便挥挥手先让我上车。</p>
+
+            <p>我匆忙跳上车，牙齿打颤着。后视镜里，却看到他冒着雨在处理最后一桶垃圾。</p>
+
+            <p>轰鸣声止，他跳上驾驶位，朝我嘿嘿一傻笑，便开始擦起头发来，黑而短直的头发悉然竖起，往外冒尖儿，像一个刺猬……</p>
+
+            <div class="scene-break">· · ·</div>
+
+            <h2>易怒症</h2>
+
+            <p>在遇到事儿的时候，他的确是一个容易"剑拔弩张"的刺猬。</p>
+
+            <p>每天面对着成堆的垃圾，阿辉有着火爆的脾气，特别是遇到别人乱丢垃圾的时候，他的人际关系就会变得极其糟糕。</p>
+
+            <p>饭堂后厨地面上，几个垃圾袋被压扁在地上，里面的食物残渣，如同呕吐物一般伴着臭味发酸的浓郁的汁水流了出来。</p>
+
+            <p>一个灰色工作服的保洁阿姨弓着腰，皱着眉头，戴着口罩和塑料手套，费劲地拉拽着几个黑色塑料袋，要将其放到旁边的垃圾桶里。见阿辉过来，她连忙说道："帮帮我，我不够力气。"</p>
+
+            <p>"哪个家伙干的？"阿辉怒气冲冲地骂道，"好几天了，这家伙肯定是故意的！"</p>
+
+            <p>他径直用手将软成烂泥一般的垃圾袋一把抓起来，丢进隆隆作响的垃圾车料斗里，随后从阿姨手里拿过扫帚和垃圾铲，麻利地清理着地上的垃圾，但地面上仍然留下了"浓墨重彩"的一笔。</p>
+
+            <p>处理完，他轻轻一跃，跳上驾驶仓，驶向下一个垃圾堆。</p>
+
+            <p>虎背熊腰，丹凤眼，婴儿肥，棒球夹克下纹的是大花臂，他的情绪经常"火山爆发"。</p>
+
+            <p>一座矮平的屋子位于学校二饭后厨外，除了工作人员以外，不见一个学生的影子。一袋袋的黑色垃圾袋从地上堆叠而起，像一个一个小金字塔。</p>
+
+            <p>地面上，碎鸡蛋壳，烂菜叶子……厨余垃圾和着各色的液体像是刷漆一样被抹满了整个地面，浸透着几个鼓鼓的垃圾袋，拎起来的时候稍不留神便会溅射到衣服上。</p>
+
+            <p>垃圾压缩车正在将一袋袋垃圾碾碎吞进肚子里，噼里啪啦地响着。"碎鸡蛋、啤酒瓶、烂扫帚、甚至是行李箱……不管是什么，一律往里丢。"阿辉眉头也没皱一下，埋头干着。</p>
+
+            <p>一个蓝衣后厨工作人员拎着一袋垃圾随手丢在垃圾房门口，正要往回走，突然却被阿辉喝住了：</p>
+
+            <p>"你站住！跟你说了多少次了！给脸不要脸！明明可以直接丢到垃圾车里面就是要丢到路边是不是？"</p>
+
+            <p>阿辉对着他劈头盖脸地一顿痛骂，蓝衣怔在原地，尴尬地望着阿辉。</p>
+
+            <p>"你站住！别想走！！！"电话打通，领导让他把这个人照下来发给他。他准备拿手机拍下这个人发给领导，滑开屏幕解锁后，手指停在屏幕上，犹豫了一下，心软了，最终没点开相机程序，而是打了个电话给老板。</p>
+
+            <p>"拍照有用吗？说了多少遍都不听！下次来还是这样。"他气冲冲地挂断了电话。</p>
+
+            <p>蓝衣依旧怔在原地，想找个理由开脱："我还要回去报到的，好了没有？"</p>
+
+            <p>"下次要还是这样，我把你的垃圾桶全都丢进碾碎去。"阿辉抬手怒指眼前的液压机。蓝衣见势快步走回后厨。</p>
+
+            <p>阿辉重重地合上车门，嘴里念叨着："我们也很辛苦的，他都看见车停在这里还不扔上去。"</p>
+
+            <p>其实，就算他碾碎所有的垃圾桶，垃圾便只能都丢在地上，最后给别人擦屁股的还是自己。</p>
+
+            <div class="scene-break">· · ·</div>
+
+            <h2>令人嫌弃的工作</h2>
+
+            <p>这份职业究竟脏还是不脏？当然脏，但人们到底是嫌弃垃圾脏，还是嫌弃垃圾运载车司机脏？这个问题的答案藏在大家的心里。</p>
+
+            <p>在大学路边的粿条店里，因为方便，附近许多的工地工人，卡车司机，都在这解决午饭，他们大多不是本地人，没有家。</p>
+
+            <p>店外，一辆辆的卡车引擎轰鸣着呼啸而过，大家得扯着嗓说话才听得清。阿辉约了2个安徽老乡在一起吃饭，一人一份粿条、一碗汤，当然，还少不了的就是一包中华。</p>
+
+            <p>饭前相互递根烟，表示问候，饭后也相互递根烟，一起唠唠，有说不完的话。</p>
+
+            <p>一个朋友说道："好多新闻系的女孩拿着相机'咔咔'拍照，天天都要拍我。结果一看环卫车，没多远立马就捂着鼻子，躲到一边去。"</p>
+
+            <p>"我看见了，就故意在他们旁边慢慢地开。"他嘚瑟地说。引得众人哈哈大笑。</p>
+
+            <p>唯有阿辉默不作声，低头吃着粿条。</p>
+
+            <blockquote>
+                <p>究竟是垃圾车司机这门职业被嫌弃？还是臭味难忍的垃圾令人嫌弃？</p>
+            </blockquote>
+
+            <p>路上，阿辉说："干我们这行，是不能带口罩的，你越戴，它就越臭。"</p>
+
+            <p>"还是那些白领好，坐在办公室里，吹吹空调。"</p>
+
+            <p>记者问道："大家都是付出劳动，有什么不一样？"</p>
+
+            <p>"就是不一样。"</p>
+
+            <p>刚进门口，前面的保安给前面的小汽车司机测完体温，随后才放行。阿辉也将车稳稳停好，看向保安，保安却向后退了一步。</p>
+
+            <p>"嘿～什么意思？"阿辉啐了一口，将车开进校园，一路上，有的学生见垃圾车迎面驶来，立刻将头别向一边；有的鼓起嘴，憋着一口气等着环卫车离去；有的一只手捏着鼻子，一只手轻拍着胸脯，表情作痛苦状。</p>
+
+            <p>阿辉对此都装作没看见，他已经尽量错开学生们去上课、去吃饭的时间运送垃圾。但仍然被学生们投诉了很多次。他只得无奈地笑笑。</p>
+
+            <p>"只有第一天开新车的时候是没有臭味的。"阿辉说，这车是洗不干净的，车厢里的垃圾、污水都在里面结成了块。</p>
+
+            <p>阿辉今年25岁，因为父母在汕头上班，所以自己也从安徽到汕头谋生。他刚刚结婚不久，3台手机的手机屏保都是和老婆的结婚照。他曾经有过一段叛逆的青春，后来，因为身上的纹身，没能进部队当上兵。</p>
+
+            <p>除了运载垃圾，他还兼职做代驾，买了个千把块钱的小电动车，可以轻松地折叠进小汽车后备箱里。根据BOSS直聘网站上的信息，垃圾运载车司机的工资在3～5K不等。</p>
+
+            <p>今天，他的微信语音消息响个不停，"你个家伙！想办法搞个干湿分离机呗，咱俩拉一趟下水道的淤泥一趟能赚至少六七百。"这是他与朋友之间独特的特别的模式，二人计划着靠拉下水道的淤泥赚点外快。</p>
+
+            <p>他正聊着起兴，再抬头看时已经过了停止线，雨天路滑，驾驶着数吨重的运载车要提前几十米就开始制动，眼见已经来不及刹车，他只能狂按大喇叭，"哇塞！刹不住了！"一不小心冲了个红灯，他不由自主地点了根烟。</p>
+
+            <p>现在，他早上负责汕头大学，中午负责新一中和瓜果批发市场的垃圾处理工作，从早到晚，每天处理的垃圾不少于20吨。有时，他会因为腰疼，请同事帮忙运送垃圾，他曾想要改过驼背的毛病，"没办法，习惯了。"</p>
+
+            <p>中午累了，他便停在路边，刷了一会短视频后就在车上呼呼睡去。电话铃一响，呼噜声戛然而止，引擎轰鸣声顿时响起，他又立马精神抖擞地开车驶向新一中。</p>
+
+            <div class="article-image">
+                <img src="/阿辉在车上睡觉.png" alt="正在车上小憩的司机" />
+                <p class="caption">正在车上小憩的司机</p>
+            </div>
+
+            <p>新一中并不需要他亲自将垃圾丢上料斗，他只需要将车停进垃圾场里，新一中就会有清洁人员来装载垃圾。他将座椅向后一放，双腿交叉腿搭在方向盘上，又开始打起呼噜来。但是，瓜果批发市场可就不像这样舒适了。</p>
+
+            <p>橘子、葡萄、西瓜、山竹……一大堆被遗弃的水果堆在地上，与之数量相当的还有苍蝇和天空中的雨点。腐烂的瓜果透着一股酸臭味，闻起来犹如羊粪。</p>
+
+            <div class="article-image">
+                <img src="/果汁留在地上发霉.png" alt="瓜果批发市场的地面" />
+                <p class="caption">瓜果批发市场的地面</p>
+            </div>
+
+            <p>阿辉先将垃圾运载车停好，随后跳上旁边的一辆铲车，铲子贴着地面前进，刮出轰隆隆的响声，在水果铺成的路面上推出一条路来。铲车在一百平米范围内的垃圾场中灵活的摆动，嗡嗡的苍蝇被搅得四处乱飞。</p>
+
+            <p>机械臂抬升将垃圾送到料斗中时，刚好与驾驶位齐平，阿辉紧皱着眉头，铲子每次向下倾泻时，一股气浪就裹挟着发霉的臭味，零星的果汁一起向他扑来。紧接着又是一次次的循环，一次次的"洗礼"。</p>
+
+            <p>终于装了满满的一车，他一脚踹开排水阀门，各种果汁混着泥浆从中涌出，任其排到地上。</p>
+
+            <p>"要是在路上漏了，那可是要几千几万的罚款的。"</p>
+
+            <p>有一个例外——垃圾填埋场，在那个地方，谁也不用担心被罚款。</p>
+
+            <div class="scene-break">· · ·</div>
+
+            <h2>垃圾山——鹭鸟天堂</h2>
+
+            <p>假如人类社会没有垃圾清运这门职业，我们将会生活在一片堆满垃圾的汪洋中。</p>
+
+            <p>一个大学，12个垃圾站，一天10吨垃圾；一个瓜果批发市场，9吨垃圾；一个中学，1吨垃圾。这是垃圾清运车司机辉哥一天需要运送的重量，假设每个司机每天运送20吨，他需要331年，才能堆出一个体积与位于北京西城区的景山大小相当的垃圾山；若是50个司机，这大概只需要6年。</p>
+
+            <div class="data-viz">
+                <div class="data-viz-title">阿辉一天处理的垃圾量分布</div>
+                <div id="garbage-chart"></div>
+                <p class="data-viz-note">数据来源：实地调研 | 单位：吨/日</p>
+            </div>
+
+            <p>金平，汕头。火力发电站火力全开，巨大的排气管，高耸的冷却塔，灰白色的烟从排气管朝外呼呼地冒着，整个火力发电站烟云缭绕，被烟雾包裹着。</p>
+
+            <p>一辆辆垃圾车伴着飞扬的砂砾尘土行驶在坑坑洼洼的公路上，他们绕过了发电厂，要将垃圾运送到垃圾填埋场。</p>
+
+            <p>"一个靠焚烧垃圾发电的发电厂，每天能烧多少垃圾？"</p>
+
+            <p>"大概一千吨。"</p>
+
+            <p>"发电厂门怎么关了？"</p>
+
+            <p>"烧不下了。"</p>
+
+            <p>阿辉说，每当火力发电厂大门紧闭时，便证明发电厂已经烧不了更多的垃圾了。这时候，司机们就会将垃圾直接倒在垃圾填埋场。</p>
+
+            <p>阿辉驾车向山的更深处驶去，水泥路面容得下两辆卡车行驶，但却凹凸不平，坑坑洼洼，同时被黄色的泥土覆盖着，乍一看倒像是泥路。前面的小汽车遇到小水坑，便慌忙绕开，生怕一个踉跄就散架了。阿辉驾驶着皮糙肉厚的运载车，只管一股脑儿往前开。</p>
+
+            <p>几吨重的垃圾运载车行驶在坑坑洼洼的土路上，坐在车上的人就像骑在马背上一样颠簸。</p>
+
+            <p>"你有没有去过牛田洋？那里的白鹭美极了！有湿地和沼泽！"我跟他搭起话来，他笑道，"白鹭？一会儿我带你去看！"</p>
+
+            <p>他驾驶着车，拐过最后一个小坡，我们终于来到了山顶，视野一下子变得宽旷起来。</p>
+
+            <p>"你看！"</p>
+
+            <p>山顶上，放眼向四周望去，平旷的山顶上似乎开遍了花儿：红的、绿的、白的、黑的、蓝的……各种各样的垃圾废品漫山遍野。</p>
+
+            <p>"你看！"他指向远处白色的一个个小点。我以为是在空中飘舞白色塑料袋。</p>
+
+            <p>他将车停稳，特地按了几下大喇叭。</p>
+
+            <p>"叭！叭！叭！"</p>
+
+            <p>白色的小点们居然张开了翅膀，在低空中盘旋起来。</p>
+
+            <div class="article-image">
+                <img src="/白点其实是白鹭.png" alt="垃圾山上的白鹭" />
+                <p class="caption">远处的白色小点，原来是一群白鹭</p>
+            </div>
+
+            <p>下车走进一看，原来是一群白鹭！</p>
+
+            <p>几声喇叭再次从耳边震起，这一次，大部分白鹭竟无动于衷，仍在"埋头苦干"，在垃圾堆里扑腾着翅膀翻找食物，尽情地享受着烂菜叶子和水果。它们不用争抢，因为这里最不缺的就是食物。</p>
+
+            <blockquote>
+                <p>"这里的食物对它们来说丰富极了。"</p>
+                <cite>—— 阿辉</cite>
+            </blockquote>
+
+            <p>鹭鸟天堂不在水草丰茂的湿地里，而是在垃圾堆叠成山的垃圾填埋场。</p>
+
+            <p>"你看！"阿辉向右前方指去，那是远处的一个山头，长满了枯黄的草。"那是一座垃圾堆成的山。"他再往地上一指，原来我们的立足之地也是一座由人工堆成的垃圾山。</p>
+
+            <p>"这本来是一片平地。"</p>
+
+            <p>举目朝四周望去，一阵阵臭味随着12月的凉风被吸入鼻孔，一起涌到肚子里搅起一股酸臭味儿，再集聚闷堵在胸腔中，挥之不去。</p>
+
+            <p>阿辉找了一块被铲车处理后留出来的空地，运载车一前一后地剧烈抖动着，从车肚子里吐出了4.4吨重的垃圾。</p>
+
+            <div class="article-image">
+                <img src="/剔牙缝.png" alt="清理垃圾车" />
+                <p class="caption">用铁棍清理残留的垃圾</p>
+            </div>
+
+            <p>随后，他拿出一把两米长的细铁棍，剔牙缝似的把留在缝隙中的残渣刮在地上后，发动引擎离去，风刮着垃圾，吹得七零八落……</p>
+
+            <footer class="article-footer">
+                <p class="author-note">
+                    <strong>作者注：</strong>感谢阿辉和他的同事们，让这座城市得以在风雨中保持清洁。
+                </p>
+            </footer>
+        </article>
+    </main>
+
+    <script>
+        // Initialize ECharts
+        var chartDom = document.getElementById('garbage-chart');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}: {c}吨 ({d}%)'
+            },
+            legend: {
+                bottom: '5%',
+                left: 'center',
+                textStyle: {
+                    fontFamily: "'Noto Serif SC', serif",
+                    fontSize: 12,
+                    color: '#666'
+                }
+            },
+            series: [
+                {
+                    name: '垃圾量',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 4,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: true,
+                        position: 'outside',
+                        formatter: '{b}\n{c}吨',
+                        fontFamily: "'Noto Serif SC', serif",
+                        fontSize: 11,
+                        color: '#333'
+                    },
+                    labelLine: {
+                        show: true
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: 14,
+                            fontWeight: 'bold'
+                        }
+                    },
+                    data: [
+                        { 
+                            value: 10, 
+                            name: '汕头大学',
+                            itemStyle: { color: '#c9463d' }
+                        },
+                        { 
+                            value: 9, 
+                            name: '瓜果批发市场',
+                            itemStyle: { color: '#e8a838' }
+                        },
+                        { 
+                            value: 1, 
+                            name: '新一中',
+                            itemStyle: { color: '#5a8f7b' }
+                        }
+                    ]
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+
+        // Resize chart on window resize
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
+    </script>
+</body>
+</html>
