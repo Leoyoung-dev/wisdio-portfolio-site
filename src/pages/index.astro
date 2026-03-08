@@ -2,48 +2,31 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="刘扬 - 产品经理 / 独立创作者">
+<Layout title="刘扬">
   <main class="home">
     <article class="paper">
-      <!-- Header -->
-      <header class="masthead">
-        <div class="masthead-inner">
-          <span class="masthead-label">Portfolio</span>
-          <h1 class="masthead-title">刘扬</h1>
-          <p class="masthead-subtitle">产品经理 · 独立开发者 · 内容创作者</p>
-        </div>
-      </header>
-
       <!-- Introduction -->
-      <section class="section">
-        <div class="intro-block">
-          <div class="avatar-column">
-            <div class="avatar">
-              <img src="/肖像照横屏.png" alt="刘扬" />
-            </div>
+      <section class="intro-section">
+        <div class="intro-header">
+          <img src="/avatar-portrait.png" alt="刘扬" class="intro-avatar" />
+          <div class="intro-title-group">
+            <h1 class="intro-name">刘扬</h1>
+            <p class="intro-tagline">汕头大学 · 网络与新媒体 · 2026届</p>
           </div>
-          <div class="bio-column">
-            <p class="bio-text">
-              汕头大学网络与新媒体专业，GPA 4.01/5，专业排名第一。
-              热衷于用产品思维解决实际问题，正在探索 AI 与学习的交汇点。
-            </p>
-            <p class="bio-text">
-              我是一名对产品充满热情的学生，喜欢从用户视角出发，发现问题并尝试解决。
-              在校期间，我独立完成了 <a href="https://wisdio.org" target="_blank" class="link">Wisdio</a> 这款 AI 学习工具的从0到1，
-              涵盖用户调研、产品设计、原型开发和部署上线。
-            </p>
-            <p class="bio-text">
-              此前，我在北京日报社实习，发表了23篇报道，其中3篇登上头版。
-              这段经历锻炼了我的信息收集与表达能力，也让我更懂得如何讲好一个故事。
-            </p>
-            <div class="contact-info">
-              <span class="contact-item">leoyoung_work@outlook.com</span>
-              <span class="contact-divider">·</span>
-              <span class="contact-item">微信: LeoYoung_H</span>
-              <span class="contact-divider">·</span>
-              <a href="https://xhslink.com/m/9ji8tv9wtWA" target="_blank" rel="noopener noreferrer" class="contact-link">小红书</a>
-            </div>
-          </div>
+        </div>
+        
+        <div class="intro-bio">
+          <p>做过实习记者，喜欢摄影、打羽毛球、看电影，最近沉迷于 Vibe coding。</p>
+          <p>在校期间独立完成了 <a href="https://wisdio.org" target="_blank" class="link">Wisdio</a>——一款基于 LLM 的视频学习浏览器插件，涵盖用户调研、产品设计、原型开发和部署上线。</p>
+          <p>此前在北京日报社实习，发表 23 篇报道，其中 3 篇登上头版。</p>
+        </div>
+        
+        <div class="intro-contact">
+          <a href="mailto:leoyoung_work@outlook.com" class="contact-link">邮箱</a>
+          <span class="contact-dot"></span>
+          <span class="contact-text">微信 LeoYoung_H</span>
+          <span class="contact-dot"></span>
+          <a href="https://xhslink.com/m/9ji8tv9wtWA" target="_blank" rel="noopener noreferrer" class="contact-link">小红书</a>
         </div>
       </section>
 
@@ -122,17 +105,6 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </section>
 
-      <!-- About -->
-      <section class="section about-section">
-        <h2 class="section-title">关于</h2>
-        <div class="about-content">
-          <p>
-            我正在寻找<strong>产品经理 / 用户研究</strong>相关的实习机会。
-            如果你对我感兴趣，欢迎查看我的 <a href="/resume" class="link">简历</a> 或直接联系我。
-          </p>
-        </div>
-      </section>
-
       <!-- Footer -->
       <footer class="footer">
         <p>© 2024 刘扬</p>
@@ -145,6 +117,7 @@ import Layout from '../layouts/Layout.astro';
   .home {
     min-height: 100vh;
     background: #fafafa;
+    padding-top: 70px;
   }
 
   .paper {
@@ -154,38 +127,14 @@ import Layout from '../layouts/Layout.astro';
     min-height: 100vh;
   }
 
-  /* Masthead */
-  .masthead {
-    padding: 80px 50px 50px;
-    border-bottom: 1px solid #e0e0e0;
-  }
-
-  .masthead-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    color: #999;
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  .masthead-title {
-    font-size: 36px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 10px;
-  }
-
-  .masthead-subtitle {
-    font-size: 16px;
-    color: #666;
-    font-weight: 400;
-  }
-
   /* Section */
   .section {
     padding: 40px 50px;
     border-bottom: 1px solid #e0e0e0;
+  }
+
+  .section:last-of-type {
+    border-bottom: none;
   }
 
   .section-title {
@@ -200,65 +149,88 @@ import Layout from '../layouts/Layout.astro';
     display: inline-block;
   }
 
-  /* Intro Block */
-  .intro-block {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 35px;
+  /* Intro Section */
+  .intro-section {
+    padding: 60px 50px 50px;
   }
 
-  .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 1px solid #e0e0e0;
+  .intro-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 30px;
   }
 
-  .avatar img {
-    width: 100%;
-    height: 100%;
+  .intro-avatar {
+    width: 72px;
+    height: 90px;
     object-fit: cover;
+    border: 1px solid #e0e0e0;
+    flex-shrink: 0;
   }
 
-  .bio-text {
+  .intro-title-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .intro-name {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+
+  .intro-tagline {
+    font-size: 14px;
+    color: #888;
+    font-weight: 400;
+  }
+
+  .intro-bio {
     font-size: 15px;
     color: #333;
     line-height: 1.9;
+    margin-bottom: 24px;
+  }
+
+  .intro-bio p {
     margin-bottom: 1rem;
   }
 
-  .link {
+  .intro-bio .link {
     color: #c9463d;
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 
-  .link:hover {
+  .intro-bio .link:hover {
     color: #a03a32;
   }
 
-  .contact-info {
-    margin-top: 1.5rem;
-    font-size: 13px;
-    color: #666;
+  .intro-contact {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 13px;
+    color: #888;
   }
 
-  .contact-divider {
-    color: #ccc;
-  }
-
-  .contact-link {
-    color: #666;
+  .intro-contact .contact-link {
+    color: #888;
     transition: color 0.2s;
   }
 
-  .contact-link:hover {
+  .intro-contact .contact-link:hover {
     color: #c9463d;
+  }
+
+  .contact-dot {
+    width: 4px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 50%;
   }
 
   /* Projects */
@@ -377,17 +349,6 @@ import Layout from '../layouts/Layout.astro';
     color: #c9463d;
   }
 
-  /* About */
-  .about-section {
-    border-bottom: none;
-  }
-
-  .about-content {
-    font-size: 15px;
-    color: #333;
-    line-height: 1.8;
-  }
-
   /* Footer */
   .footer {
     padding: 30px 50px;
@@ -403,22 +364,34 @@ import Layout from '../layouts/Layout.astro';
 
   /* Responsive */
   @media (max-width: 600px) {
-    .masthead {
-      padding: 70px 25px 40px;
+    .intro-section {
+      padding: 50px 25px 40px;
+    }
+
+    .intro-header {
+      gap: 16px;
+    }
+
+    .intro-avatar {
+      width: 60px;
+      height: 75px;
+    }
+
+    .intro-name {
+      font-size: 24px;
+    }
+
+    .intro-tagline {
+      font-size: 13px;
+    }
+
+    .intro-contact {
+      flex-wrap: wrap;
+      gap: 8px 12px;
     }
 
     .section {
       padding: 30px 25px;
-    }
-
-    .intro-block {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    .avatar {
-      width: 80px;
-      height: 80px;
     }
 
     .works-grid {
@@ -429,10 +402,6 @@ import Layout from '../layouts/Layout.astro';
       margin-left: -25px;
       margin-right: -25px;
       padding: 20px 25px;
-    }
-
-    .masthead-title {
-      font-size: 28px;
     }
   }
 </style>

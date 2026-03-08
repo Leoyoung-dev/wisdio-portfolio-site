@@ -50,6 +50,7 @@ import Layout from '../../layouts/Layout.astro';
         <nav class="tab-nav sub-tabs">
           <button class="tab-btn active" data-subtab="video">视频类</button>
           <button class="tab-btn" data-subtab="article">文字报道类</button>
+          <button class="tab-btn" data-subtab="photo">摄影类</button>
           <button class="tab-btn" data-subtab="newmedia">新媒体类</button>
           <button class="tab-btn" data-subtab="figma">Figma设计类</button>
         </nav>
@@ -97,7 +98,7 @@ import Layout from '../../layouts/Layout.astro';
 
         <!-- 文字报道类 -->
         <div class="subtab-content" id="article">
-          <div class="works-grid">
+          <div class="works-grid single-column">
             <!-- 以新探古 - 可展开卡片 -->
             <div class="work-card expandable-card" id="yixin-tangu-card">
               <div class="card-header">
@@ -170,6 +171,38 @@ import Layout from '../../layouts/Layout.astro';
           </div>
         </div>
 
+        <!-- 摄影类 -->
+        <div class="subtab-content" id="photo">
+          <div class="slider-gallery">
+            <button class="slider-btn prev" aria-label="上一张">‹</button>
+            <div class="slider-container">
+              <div class="slider-track">
+                <div class="slide"><img src="/photo-6.jpg" alt="山脊日出" /></div>
+                <div class="slide"><img src="/photo-1.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-2.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-3.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-4.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-5.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-7.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-8.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-9.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-10.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-11.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-12.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-13.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-14.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-15.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-16.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-17.jpg" alt="摄影作品" /></div>
+                <div class="slide"><img src="/photo-18.jpg" alt="摄影作品" /></div>
+              </div>
+            </div>
+            <button class="slider-btn next" aria-label="下一张">›</button>
+          </div>
+          <div class="slider-dots"></div>
+          <p class="slider-hint">← 左右滑动或点击箭头浏览 →</p>
+        </div>
+
         <!-- 新媒体类 -->
         <div class="subtab-content" id="newmedia">
           <div class="works-grid">
@@ -183,12 +216,21 @@ import Layout from '../../layouts/Layout.astro';
               <span class="card-link">阅读原文 →</span>
             </a>
             
-            <a href="https://mp.weixin.qq.com/s/ZEt4dJlCMUagitF5prlSHA" target="_blank" rel="noopener noreferrer" class="work-card">
+            <a href="https://mp.weixin.qq.com/s/S6hFpua7ZFlx4CoVQEty9Q" target="_blank" rel="noopener noreferrer" class="work-card">
               <div class="card-header">
                 <span class="card-type">微信公众号</span>
               </div>
-              <h3 class="card-title">新媒体运营系列报道</h3>
-              <p class="card-desc">多篇新媒体内容创作，涵盖社会观察、人物特写等题材。</p>
+              <h3 class="card-title">摄影基础（1）</h3>
+              <p class="card-desc">摄影入门知识分享，从零开始学习摄影技巧。</p>
+              <span class="card-link">阅读原文 →</span>
+            </a>
+            
+            <a href="https://mp.weixin.qq.com/s/CEp5grBTcBSf0Kqth9UIHg" target="_blank" rel="noopener noreferrer" class="work-card">
+              <div class="card-header">
+                <span class="card-type">微信公众号</span>
+              </div>
+              <h3 class="card-title">春日寻英迹丨青年红色文旅产品</h3>
+              <p class="card-desc">红色文旅产品设计，探索青年与红色文化的连接方式。</p>
               <span class="card-link">阅读原文 →</span>
             </a>
           </div>
@@ -350,6 +392,10 @@ import Layout from '../../layouts/Layout.astro';
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+  }
+
+  .works-grid.single-column {
+    grid-template-columns: 1fr;
   }
 
   /* Work Card */
@@ -586,6 +632,90 @@ import Layout from '../../layouts/Layout.astro';
     font-weight: bold;
   }
 
+  /* Slider Gallery */
+  .slider-gallery {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0 10px;
+  }
+
+  .slider-container {
+    overflow: hidden;
+    flex: 1;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+  }
+
+  .slider-track {
+    display: flex;
+    transition: transform 0.4s ease;
+  }
+
+  .slide {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .slide img {
+    max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    cursor: grab;
+  }
+
+  .slider-btn {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    color: #666;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .slider-btn:hover {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
+  }
+
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+  }
+
+  .slider-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .slider-dot.active {
+    background: #c9463d;
+  }
+
+  .slider-hint {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+  }
+
   /* Video Card */
   .video-card {
     grid-column: span 2;
@@ -634,6 +764,16 @@ import Layout from '../../layouts/Layout.astro';
 
     .video-card {
       grid-column: span 1;
+    }
+
+    .slider-btn {
+      width: 36px;
+      height: 36px;
+      font-size: 20px;
+    }
+
+    .slide img {
+      max-height: 350px;
     }
   }
 </style>
@@ -704,5 +844,84 @@ import Layout from '../../layouts/Layout.astro';
   listHeader.addEventListener('click', () => {
     listHeader.classList.toggle('expanded');
     articleList.classList.toggle('show');
+  });
+
+  // Slider Gallery
+  const sliderTrack = document.querySelector('.slider-track');
+  const slides = document.querySelectorAll('.slide');
+  const prevBtn = document.querySelector('.slider-btn.prev');
+  const nextBtn = document.querySelector('.slider-btn.next');
+  const dotsContainer = document.querySelector('.slider-dots');
+  
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+  let startX = 0;
+  let isDragging = false;
+
+  // Create dots
+  slides.forEach((_, index) => {
+    const dot = document.createElement('span');
+    dot.classList.add('slider-dot');
+    if (index === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goToSlide(index));
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = document.querySelectorAll('.slider-dot');
+
+  function updateSlider() {
+    sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentSlide);
+    });
+  }
+
+  function goToSlide(index) {
+    currentSlide = index;
+    updateSlider();
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateSlider();
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateSlider();
+  }
+
+  prevBtn.addEventListener('click', prevSlide);
+  nextBtn.addEventListener('click', nextSlide);
+
+  // Touch/Mouse drag
+  sliderTrack.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+  });
+
+  sliderTrack.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+  });
+
+  sliderTrack.addEventListener('mouseup', (e) => {
+    if (!isDragging) return;
+    const diff = startX - e.clientX;
+    if (diff > 50) nextSlide();
+    if (diff < -50) prevSlide();
+    isDragging = false;
+  });
+
+  sliderTrack.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    const diff = startX - e.changedTouches[0].clientX;
+    if (diff > 50) nextSlide();
+    if (diff < -50) prevSlide();
+    isDragging = false;
+  });
+
+  sliderTrack.addEventListener('mouseleave', () => {
+    isDragging = false;
   });
 </script>
