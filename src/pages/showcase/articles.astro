@@ -14,6 +14,7 @@ import Layout from '../../layouts/Layout.astro';
       <nav class="tab-nav main-tabs">
         <button class="tab-btn active" data-tab="data-analysis">数据分析类</button>
         <button class="tab-btn" data-tab="media-design">媒体设计类</button>
+        <button class="tab-btn" data-tab="product-design">产品设计类</button>
       </nav>
 
       <!-- 数据分析类 -->
@@ -52,7 +53,6 @@ import Layout from '../../layouts/Layout.astro';
           <button class="tab-btn" data-subtab="article">文字报道类</button>
           <button class="tab-btn" data-subtab="photo">摄影类</button>
           <button class="tab-btn" data-subtab="newmedia">新媒体类</button>
-          <button class="tab-btn" data-subtab="figma">Figma设计类</button>
         </nav>
 
         <!-- 视频类 -->
@@ -235,28 +235,31 @@ import Layout from '../../layouts/Layout.astro';
             </a>
           </div>
         </div>
+      </section>
 
-        <!-- Figma设计类 -->
-        <div class="subtab-content" id="figma">
-          <div class="works-grid">
-            <a href="https://www.figma.com/design/mV70F2Kw6i3p731mxYiL5U/Wisdio-AI-%E2%80%93-UI-UX-Mockups?node-id=0-1&m=dev" target="_blank" rel="noopener noreferrer" class="work-card">
-              <div class="card-header">
-                <span class="card-type">UI/UX Design</span>
-              </div>
-              <h3 class="card-title">Wisdio AI – UI/UX Mockups</h3>
-              <p class="card-desc">Wisdio 产品的交互原型与界面设计，包含完整用户流程与交互细节。</p>
-              <span class="card-link">在 Figma 中查看 →</span>
-            </a>
-            
-            <a href="https://wisdio.org" target="_blank" rel="noopener noreferrer" class="work-card">
-              <div class="card-header">
-                <span class="card-type">Website</span>
-              </div>
-              <h3 class="card-title">Wisdio 官网</h3>
-              <p class="card-desc">产品官网设计与开发，展示产品功能与价值主张。</p>
-              <span class="card-link">访问网站 →</span>
-            </a>
-          </div>
+      <!-- 产品设计类 -->
+      <section class="tab-content" id="product-design">
+        <div class="category-header">
+          <h2 class="category-title">UI/UX 与产品原型</h2>
+        </div>
+        <div class="works-grid">
+          <a href="https://www.figma.com/design/mV70F2Kw6i3p731mxYiL5U/Wisdio-AI-%E2%80%93-UI-UX-Mockups?node-id=0-1&m=dev" target="_blank" rel="noopener noreferrer" class="work-card">
+            <div class="card-header">
+              <span class="card-type">UI/UX Design</span>
+            </div>
+            <h3 class="card-title">Wisdio AI – UI/UX Mockups</h3>
+            <p class="card-desc">Wisdio 产品的交互原型与界面设计，包含完整用户流程与交互细节。</p>
+            <span class="card-link">在 Figma 中查看 →</span>
+          </a>
+          
+          <a href="https://wisdio.org" target="_blank" rel="noopener noreferrer" class="work-card">
+            <div class="card-header">
+              <span class="card-type">Website</span>
+            </div>
+            <h3 class="card-title">Wisdio 官网</h3>
+            <p class="card-desc">产品官网设计与开发，展示产品功能与价值主张。</p>
+            <span class="card-link">访问网站 →</span>
+          </a>
         </div>
       </section>
     </article>
