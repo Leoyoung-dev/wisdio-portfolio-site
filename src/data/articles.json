@@ -49,5 +49,37 @@
         "source": "微信公众号",
         "description": "多篇新媒体内容创作，涵盖社会观察、人物特写等题材。",
         "url": "https://mp.weixin.qq.com/s/ZEt4dJlCMUagitF5prlSHA"
+    },
+    {
+        "id": "7",
+        "title": "暑期遛娃感受大唐气象，在国家典籍博物馆聆听贞观长歌",
+        "date": "2024-07-12",
+        "source": "北京日报客户端",
+        "description": "北京地区首次大规模贞观主题文物展，多角度展现了唐代发达的物质文明和精神文明。",
+        "url": "/beijing-news.html"
+    },
+    {
+        "id": "8",
+        "title": "春日寻英迹丨一起来看看明信片吧！",
+        "date": "2024",
+        "source": "微信公众号",
+        "description": "“红动粤东”创意工作室设计的英烈系列文创产品，包括种子明信片、建筑明信片等，旨在通过创意传承红色文化。",
+        "url": "https://mp.weixin.qq.com/s/JRFfqWsHwZboXHj7JHik2A"
+    },
+    {
+        "id": "9",
+        "title": "春日寻英迹 | 英烈群像卡片出炉啦！",
+        "date": "2024",
+        "source": "微信公众号",
+        "description": "展示了“红动粤东”工作室开发的英烈群像卡片，通过艺术化表达让更多人了解和记住红色英烈的故事。",
+        "url": "https://mp.weixin.qq.com/s/jl95gWB6BnGYlW6VbKienQ"
+    },
+    {
+        "id": "10",
+        "title": "春日寻英迹丨青年红色文旅产品",
+        "date": "2024",
+        "source": "微信公众号",
+        "description": "工作室开发的多种青年红色文旅产品，将红色文化挖掘与现代审美及生活实用需求相结合，打造全方位文创体验。",
+        "url": "https://mp.weixin.qq.com/s/CEp5grBTcBSf0Kqth9UIHg"
     }
 ]
